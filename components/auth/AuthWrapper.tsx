@@ -24,7 +24,10 @@ export default function AuthWrapper({ form, authType }: IAuthWrapper) {
         </h1>
         <div>{form}</div>
         <span className="text-center text-gray-400">or</span>
-        <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 border rounded-xl cursor-pointer">
+        <div
+          onClick={() => {}}
+          className="flex flex-row items-center justify-center gap-2 px-4 py-2 border rounded-xl cursor-pointer"
+        >
           <AiFillGithub size={24} />
           <p>Sign in with Google</p>
         </div>

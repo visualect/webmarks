@@ -1,21 +1,26 @@
-"use client";
-
-import React from "react";
 import Container from "../Container";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import LogoutButton from "../buttons/LogoutButton";
+import { User } from "@prisma/client";
 
-export default function Header() {
-  const currentPath = usePathname();
-  if (currentPath === "/login" || currentPath === "/register") return null;
+interface IHeaderProps {
+  currentUser: User;
+}
 
+export default async function Header({ currentUser }: IHeaderProps) {
   return (
     <header className="border-b">
       <Container>
-        <div className="flex flex-row items-center gap-8 py-5">
+        <div className="flex flex-row items-center justify-between gap-8 py-5">
           <span className="font-bold">
-            <Link href={"/"}>webmarks</Link>
+            <Link href={"/"}>Webmarks</Link>
           </span>
+          <div className="flex flex-row items-center gap-4">
+            <div>{currentUser.name}</div>
+            <div>
+              <LogoutButton />
+            </div>
+          </div>
         </div>
       </Container>
     </header>

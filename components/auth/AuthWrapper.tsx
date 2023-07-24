@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { AiFillGithub } from "react-icons/ai";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface IAuthWrapper {
   form: React.ReactNode;
@@ -25,15 +27,18 @@ export default function AuthWrapper({ form, authType }: IAuthWrapper) {
         <div>{form}</div>
         <span className="text-center text-gray-400">or</span>
         <div
-          onClick={() => {}}
+          onClick={() => signIn("github", { callbackUrl: "/" })}
           className="flex flex-row items-center justify-center gap-2 px-4 py-2 border rounded-xl cursor-pointer"
         >
           <AiFillGithub size={24} />
-          <p>Sign in with Google</p>
-        </div>
-        <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 border rounded-xl cursor-pointer">
-          <FcGoogle size={24} />
           <p>Sign in with GitHub</p>
+        </div>
+        <div
+          onClick={() => signIn("google", { callbackUrl: "/" })}
+          className="flex flex-row items-center justify-center gap-2 px-4 py-2 border rounded-xl cursor-pointer"
+        >
+          <FcGoogle size={24} />
+          <p>Sign in with Google</p>
         </div>
         <div>
           <div className="text-center text-sm text-slate-800">

@@ -1,11 +1,18 @@
-"use client";
-
-import { getServerSession } from "next-auth";
+import getCurrentUser from "@/actions/getCurrentUser";
+import Container from "@/components/Container";
+import Header from "@/components/header/Header";
 import { redirect } from "next/navigation";
 
-export default function Home() {
-  const currentUser = false;
-  !currentUser && redirect("/login");
+export default async function Home() {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    redirect("/login");
+  }
 
-  return <div>Home page</div>;
+  return (
+    <>
+      <Header currentUser={currentUser} />
+      <Container>Home page</Container>
+    </>
+  );
 }

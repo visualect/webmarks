@@ -2,7 +2,7 @@
 
 interface IButtonProps {
   label: string;
-  action: () => void;
+  action?: () => void;
   disabled?: boolean;
   style: "primary" | "alternative";
 }

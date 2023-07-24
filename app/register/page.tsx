@@ -1,17 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/Button";
+import Button from "@/components/buttons/Button";
 import Input from "@/components/Input";
 import AuthWrapper from "@/components/auth/AuthWrapper";
+import axios from "axios";
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    axios
+      .post("api/register", { name, email, password })
+      .then(() => alert("User has been registred"))
+      .catch((err) => alert(err.message));
+  };
+
   const form = (
-    <form className="flex flex-col gap-4">
+    <form onSubmit={onSubmit} className="flex flex-col gap-4">
       <Input
         value={name}
         onChange={(e) => setName(e.target.value)}

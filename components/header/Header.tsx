@@ -9,7 +9,7 @@ interface IHeaderProps {
 
 export default async function Header({ currentUser }: IHeaderProps) {
   return (
-    <header className="border-b">
+    <header className="border-b bg-white">
       <Container>
         <div className="flex flex-row items-center justify-between gap-8 py-5">
           <span className="font-bold">

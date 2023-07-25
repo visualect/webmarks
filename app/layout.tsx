@@ -6,7 +6,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "webmarks",
+  title: "Webmarks",
   description: "A simple and easy-to-use platform for taking notes on the web",
 };
 
@@ -17,7 +17,11 @@ export default async function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body
+        className={`${inter.className} bg-gradient-to-r from-gray-50 from-1% to-100% to-white`}
+      >
+        {children}
+      </body>
     </html>
   );
 }

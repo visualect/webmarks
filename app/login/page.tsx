@@ -9,8 +9,8 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("example@mail.com");
+  const [password, setPassword] = useState("12345");
   const [error, setError] = useState("");
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,7 +50,7 @@ export default function LoginPage() {
         placeholder={"Password"}
         type="password"
       />
-      <Button label="Sign in" style="primary" />
+      <Button label="Sign in" style="primary" size="normal" />
       {error ? error : null}
     </form>
   );

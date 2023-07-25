@@ -1,9 +1,7 @@
-'use client'
+"use client";
 
-import React from 'react'
+import React from "react";
 
 export default function Container({ children }: { children: React.ReactNode }) {
-  return (
-    <div className='w-[1200px] mx-auto my-0'>{children}</div>
-  )
+  return <div className="w-[1800px] mx-auto my-0 px-4">{children}</div>;
 }

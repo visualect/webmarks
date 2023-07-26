@@ -22,7 +22,10 @@ export default function CategoriesList({
           selectCategory={selectCategory}
         />
       ))}
-      <div className="bg-transparent border rounded-full min-w-[60px] text-center p-1 cursor-pointer">
+      <div
+        onClick={() => {}}
+        className="bg-transparent border rounded-full min-w-[60px] text-center p-1 cursor-pointer"
+      >
         <div className="font-bold text-xs">Add +</div>
       </div>
     </div>

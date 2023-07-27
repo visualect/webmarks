@@ -17,7 +17,6 @@ export default function BookmarksList({
   currentUser,
 }: IBookmarksProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
-
   const favorites = bookmarks?.filter((item) => item.favorite);
   const filteredBookmarks = bookmarks?.filter(
     (bookmark) => bookmark.category === selectedCategory

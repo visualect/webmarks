@@ -1,37 +1,25 @@
 "use client";
 
 import { Category } from "@prisma/client";
+import { colorVariants } from "@/utils/colours";
 
 interface ICategoryTagProps {
-  category?: Category;
-  all?: boolean;
+  category: Category;
   selectCategory: (value: string) => void;
 }
 
 export default function CategoryTag({
   category,
-  all,
   selectCategory,
 }: ICategoryTagProps) {
-  let name: string;
-  let color: string;
-
-  if (category && !all) {
-    name = category.name;
-    color = category.color;
-  } else {
-    name = "All";
-    color = "blue";
-  }
-
   return (
     <div
-      onClick={() => selectCategory(name)}
-      className={`bg-blue-500/25 rounded-full min-w-[60px] text-center p-1 cursor-pointer align-middle`}
+      onClick={() => selectCategory(category.name)}
+      className={`${
+        colorVariants[category.color as keyof typeof colorVariants]
+      } font-bold text-xs rounded-full min-w-[60px] text-center px-4 py-1 cursor-pointer align-middle border`}
     >
-      <div className={`text-blue-500 font-bold text-xs`}>
-        {all ? "All" : `#${name}`}
-      </div>
+      {`#${category.name}`}
     </div>
   );
 }

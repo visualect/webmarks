@@ -11,7 +11,6 @@ export default async function Home() {
   if (!currentUser) {
     redirect("/login");
   }
-
   // const bookmarks = await getBookmarksById(currentUser.id);
 
   return (

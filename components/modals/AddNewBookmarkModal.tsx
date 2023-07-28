@@ -2,21 +2,31 @@
 
 import React, { useState } from "react";
 import Modal from "./Modal";
-import { useBookmarkStore } from "@/store/store";
+import { useBookmarkStore, useCategoryStore } from "@/store/store";
 import Input from "../Input";
-import { Category } from "@prisma/client";
+import { Bookmark, Category } from "@prisma/client";
 import Select from "react-select";
+import Button from "../buttons/Button";
+import axios from "axios";
+import { PiWarningLight } from "react-icons/pi";
+import { useRouter } from "next/navigation";
 
 interface IAddNewBookmarkModalProps {
   categories: Category[];
+  bookmarks: Bookmark[];
 }
 
 export default function AddNewBookmarkModal({
   categories,
+  bookmarks,
 }: IAddNewBookmarkModalProps) {
   const [url, setUrl] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const { isBookmarkModalActive, closeBookmarkModal } = useBookmarkStore();
+  const { openCategoryModal } = useCategoryStore();
+  const router = useRouter();
 
   const categoryOptions = categories.map((category) => {
     return {
@@ -25,11 +35,17 @@ export default function AddNewBookmarkModal({
     };
   });
 
-  const { isBookmarkModalActive, closeBookmarkModal } = useBookmarkStore();
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    await axios.post("api/bookmark", { url, name, description, category });
+    closeBookmarkModal();
+    router.refresh();
+  };
+
   const body = (
     <div className="flex flex-col gap-4 w-[500px]">
       <h1 className="font-bold text-center">Create new bookmark</h1>
-      <form className="flex flex-col gap-4 w-full">
+      <form className="flex flex-col gap-4 w-full" onSubmit={onSubmit}>
         <div className="flex flex-col gap-1">
           <p className="text-xs text-gray-500">Paste a URL</p>
           <Input
@@ -58,9 +74,36 @@ export default function AddNewBookmarkModal({
           />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-xs text-gray-500">Choose a category</p>
-          <Select options={categoryOptions} placeholder="Category" />
+          {!categories.length ? (
+            <div className="flex flex-col gap-1">
+              <p className="text-xs text-gray-500">Choose category</p>
+              <p className="flex items-center text-xs text-gray-500">
+                <PiWarningLight size={20} color="#6b7280" className="mr-1" />
+                Looks like you haven&apos;t any categories yet.
+                <span
+                  className="text-blue-500 underline px-1 cursor-pointer"
+                  onClick={() => {
+                    closeBookmarkModal();
+                    openCategoryModal();
+                  }}
+                >
+                  Click here
+                </span>{" "}
+                to create category
+              </p>
+            </div>
+          ) : (
+            <>
+              <p className="text-xs text-gray-500">Choose a category</p>
+              <Select
+                options={categoryOptions}
+                placeholder="Category"
+                onChange={(categoryObj) => setCategory(categoryObj!.label)} // !!!
+              />
+            </>
+          )}
         </div>
+        <Button label="Add" style="primary" size="normal" />
       </form>
     </div>
   );

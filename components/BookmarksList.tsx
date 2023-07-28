@@ -1,27 +1,27 @@
 "use client";
 
-import { Bookmark } from "@prisma/client";
+import { Bookmark, Category } from "@prisma/client";
 import Title from "./Title";
 import Boomark from "./bookmarks/Boomark";
 import Categories from "./categories/Categories";
-import { UserWithCategory } from "@/types/types";
 import { useState } from "react";
 import EmptyState from "./EmptyState";
 
 interface IBookmarksProps {
   bookmarks: Bookmark[];
-  currentUser: UserWithCategory;
+  categories: Category[];
 }
 
 export default function BookmarksList({
   bookmarks,
-  currentUser,
+  categories,
 }: IBookmarksProps) {
   const [selectedCategory, setSelectedCategory] = useState("All");
   const favorites = bookmarks.filter((item) => item.favorite);
-  const filteredBookmarks = bookmarks?.filter(
-    (bookmark) => bookmark.category === selectedCategory
-  );
+  const filteredBookmarks =
+    selectedCategory === "All"
+      ? bookmarks
+      : bookmarks?.filter((bookmark) => bookmark.category === selectedCategory);
 
   return (
     <div className="py-10">
@@ -37,12 +37,12 @@ export default function BookmarksList({
       )}
       <Title label="Library" />
       <Categories
-        categories={currentUser.categories}
+        categories={categories}
         selectCategory={setSelectedCategory}
       />
       <div className="flex flex-row gap-4 py-8">
-        {bookmarks?.length ? (
-          bookmarks?.map((bookmark) => (
+        {filteredBookmarks?.length ? (
+          filteredBookmarks?.map((bookmark) => (
             <Boomark key={bookmark.id} bookmark={bookmark} size="normal" />
           ))
         ) : (

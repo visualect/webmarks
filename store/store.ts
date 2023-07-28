@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export interface IModalState {
+export interface ICategoryState {
   isCategoryModalActive: boolean;
   closeCategoryModal: () => void;
   openCategoryModal: () => void;
@@ -12,7 +12,7 @@ export interface IBookmarkState {
   openBookmarkModal: () => void;
 }
 
-export const useModalStore = create<IModalState>()((set) => ({
+export const useCategoryStore = create<ICategoryState>()((set) => ({
   isCategoryModalActive: false,
   closeCategoryModal: () => set(() => ({ isCategoryModalActive: false })),
   openCategoryModal: () => set(() => ({ isCategoryModalActive: true })),

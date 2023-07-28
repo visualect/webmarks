@@ -5,7 +5,7 @@ import Input from "../Input";
 import Modal from "./Modal";
 import colors from "@/utils/colours";
 import Button from "../buttons/Button";
-import { useModalStore } from "@/store/store";
+import { useCategoryStore } from "@/store/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { colorVariants } from "@/utils/colours";
@@ -23,8 +23,10 @@ export default function AddCategoryModal() {
   const [color, setColor] = useState("");
   const router = useRouter();
 
-  const isOpen = useModalStore((state) => state.isCategoryModalActive);
-  const closeCategoryModal = useModalStore((state) => state.closeCategoryModal);
+  const isOpen = useCategoryStore((state) => state.isCategoryModalActive);
+  const closeCategoryModal = useCategoryStore(
+    (state) => state.closeCategoryModal
+  );
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -2,7 +2,7 @@
 
 import { Category } from "@prisma/client";
 import CategoryTag from "./CategoryTag";
-import { useModalStore } from "@/store/store";
+import { useCategoryStore } from "@/store/store";
 
 interface ICategoriesListProps {
   categories: Category[];
@@ -13,7 +13,9 @@ export default function CategoriesList({
   categories = [],
   selectCategory,
 }: ICategoriesListProps) {
-  const openCategoryModal = useModalStore((state) => state.openCategoryModal);
+  const openCategoryModal = useCategoryStore(
+    (state) => state.openCategoryModal
+  );
 
   return (
     <div className="flex flex-row flex-wrap gap-2 my-4">

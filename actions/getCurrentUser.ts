@@ -1,6 +1,7 @@
 import { authOptions } from "@/configs/auth";
 import { UserWithCategory } from "@/types/types";
 import { prisma } from "@/utils/prismadb";
+import { User } from "@prisma/client";
 import { getServerSession } from "next-auth";
 
 export default async function getCurrentUser() {
@@ -12,12 +13,9 @@ export default async function getCurrentUser() {
     where: {
       email: session.user?.email,
     },
-    include: {
-      categories: true,
-    },
   });
 
   if (!user) return null;
 
-  return user as UserWithCategory;
+  return user as User;
 }

@@ -11,19 +11,19 @@ datasource db {
 }
 
 model User {
-  id             String     @id @default(auto()) @map("_id") @db.ObjectId
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  email          String?    @unique
+  email          String?   @unique
   emailVerified  DateTime?
   image          String?
   hashedPassword String?
-  createdAt      DateTime   @default(now())
-  updatedAt      DateTime   @updatedAt
-  bookmarks      String[]
-  categories     Category[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favorites      String[]  @db.ObjectId
 
-  accounts Account[]
-  Bookmark Bookmark[]
+  accounts   Account[]
+  bookmarks  Bookmark[]
+  categories Category[]
 }
 
 model Account {

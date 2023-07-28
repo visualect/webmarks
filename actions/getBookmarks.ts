@@ -8,7 +8,7 @@ export async function getBookmarksById(userId: string) {
     },
   });
 
-  if (!bookmarks) return null;
+  // if (!bookmarks) return null;
 
   return bookmarks as Bookmark[];
 }

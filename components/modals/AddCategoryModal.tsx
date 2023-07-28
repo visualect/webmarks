@@ -10,6 +10,14 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { colorVariants } from "@/utils/colours";
 
+// export const colorVariants = {
+//   indigo: "bg-indigo-500/20 text-indigo-500 border-indigo-300",
+//   rose: "bg-rose-500/20 text-rose-500 border-rose-300",
+//   emerald: "bg-emerald-500/20 text-emerald-500 border-emerald-300",
+//   amber: "bg-amber-500/20 text-amber-500 border-amber-300",
+//   fuchsia: "bg-fuchsia-500/20 text-fuchsia-500 border-fuchsia-300",
+// };
+
 export default function AddCategoryModal() {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
@@ -24,6 +32,7 @@ export default function AddCategoryModal() {
     await axios.post("/api/category", { name, color });
     setColor("");
     setName("");
+    closeCategoryModal();
     router.refresh();
   };
 
@@ -35,7 +44,7 @@ export default function AddCategoryModal() {
           <p className="text-xs text-gray-500 mb-2">Name a new category</p>
           <Input
             value={name}
-            placeholder="Name"
+            placeholder="E.g. Books"
             onChange={(e) => setName(e.target.value)}
             type="text"
           />

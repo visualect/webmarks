@@ -16,7 +16,7 @@ export default function CategoriesList({
   const openCategoryModal = useModalStore((state) => state.openCategoryModal);
 
   return (
-    <div className="flex flex-row gap-2 my-4">
+    <div className="flex flex-row flex-wrap gap-2 my-4">
       <div
         onClick={() => selectCategory("All")}
         className="bg-transparent border rounded-full min-w-[60px] text-center p-1 cursor-pointer"

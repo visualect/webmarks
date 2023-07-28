@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "../Container";
 import Link from "next/link";
 import LogoutButton from "../buttons/LogoutButton";
@@ -7,7 +9,7 @@ interface IHeaderProps {
   currentUser: User;
 }
 
-export default async function Header({ currentUser }: IHeaderProps) {
+export default function Header({ currentUser }: IHeaderProps) {
   return (
     <header className="border-b bg-white">
       <Container>

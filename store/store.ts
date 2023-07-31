@@ -19,7 +19,7 @@ export const useCategoryStore = create<ICategoryState>()((set) => ({
 }));
 
 export const useBookmarkStore = create<IBookmarkState>()((set) => ({
-  isBookmarkModalActive: true,
+  isBookmarkModalActive: false,
   closeBookmarkModal: () => set(() => ({ isBookmarkModalActive: false })),
   openBookmarkModal: () => set(() => ({ isBookmarkModalActive: true })),
 }));

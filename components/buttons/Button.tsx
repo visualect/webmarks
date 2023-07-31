@@ -20,15 +20,11 @@ export default function Button({
       className={`
       ${
         size === "normal"
-          ? `px-4 py-2 text-lg font-medium`
+          ? `px-4 py-2 text-base font-base`
           : `px-2 py-1 text-sm font-base`
       }
-      bg-gradient-to-r
-      from-white
-      from-1%
-      to-100%
-      to-blue-50
-      border-blue-100
+      bg-white  
+      border-gray-200
       text-black
       border
       rounded-xl

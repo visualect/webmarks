@@ -37,7 +37,7 @@ export default function AddNewBookmarkModal({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await axios.post("api/bookmark", { url, name, description, category });
+    await axios.post("api/bookmarks", { url, name, description, category });
     closeBookmarkModal();
     router.refresh();
   };

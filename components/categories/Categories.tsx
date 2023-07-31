@@ -29,7 +29,7 @@ export default function CategoriesList({
         <CategoryTag
           key={category.id}
           category={category}
-          selectCategory={selectCategory}
+          action={selectCategory}
         />
       ))}
       <div

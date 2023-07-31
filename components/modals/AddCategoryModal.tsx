@@ -31,7 +31,7 @@ export default function AddCategoryModal() {
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!name && !color) return;
-    await axios.post("/api/category", { name, color });
+    await axios.post("/api/categories", { name, color });
     setColor("");
     setName("");
     closeCategoryModal();

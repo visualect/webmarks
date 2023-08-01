@@ -3,9 +3,12 @@
 import getFavicon from "@/actions/getFavicon";
 import { Bookmark, Category } from "@prisma/client";
 import Image from "next/image";
-import Link from "next/link";
 import CategoryTag from "../categories/CategoryTag";
 import { BsThreeDotsVertical } from "react-icons/bs";
+import BookmarkMenu from "../menu/BookmarkMenu";
+import { useState } from "react";
+import { useClickOutside } from "@/hooks/useClickOutside";
+import { colorVariants } from "@/utils/colours";
 
 interface IBookmarkProps {
   bookmark: Bookmark;
@@ -13,11 +16,17 @@ interface IBookmarkProps {
   size: "large" | "normal";
 }
 
-export default function Bookmark({
+export default function BookmarkItem({
   bookmark,
   size,
   categories,
 }: IBookmarkProps) {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  let menuRef = useClickOutside(() => {
+    setIsMenuOpen(false);
+  });
+
   const { name, description, url } = bookmark;
   const iconUrl = getFavicon(url);
 
@@ -37,6 +46,7 @@ export default function Bookmark({
         border 
         rounded-xl
         cursor-pointer
+        select-none
         ${size === "large" ? "w-[240px] p-4" : "w-[220px] p-3"}
         `}
     >
@@ -57,15 +67,29 @@ export default function Bookmark({
             {name}
           </h2>
         </div>
-        <div className="flex flex-row gap-4 items-center">
+        <div className="flex flex-row gap-1 items-center">
           <CategoryTag category={categoryObj} />
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-            }}
-            className="p-1 hover:bg-gray-100 rounded-full"
-          >
-            <BsThreeDotsVertical size={20} />
+          {/* <div
+            className={`${
+              colorVariants[categoryObj.color as keyof typeof colorVariants]
+            } w-6 h-6 rounded-full`}
+          ></div> */}
+          <div className="relative">
+            <div
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsMenuOpen((prev) => !prev);
+              }}
+              className="p-3 hover:bg-gray-100 rounded-full"
+              ref={menuRef}
+            >
+              <BsThreeDotsVertical size={20} />
+              <BookmarkMenu
+                isOpen={isMenuOpen}
+                id={bookmark.id}
+                isFavorite={bookmark.favorite}
+              />
+            </div>
           </div>
         </div>
       </div>

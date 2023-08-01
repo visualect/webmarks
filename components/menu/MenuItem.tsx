@@ -7,8 +7,11 @@ interface IMenuItem {
 
 export default function MenuItem({ label, action }: IMenuItem) {
   return (
-    <div className="p-2 text-sm hover:bg-gray-100 rounded-xl" onClick={action}>
+    <li
+      className="flex p-2 text-sm hover:bg-gray-100 rounded-xl cursor-pointer font-normal"
+      onClick={action}
+    >
       {label}
-    </div>
+    </li>
   );
 }

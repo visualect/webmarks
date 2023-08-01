@@ -30,6 +30,7 @@ export default function CategoriesList({
           key={category.id}
           category={category}
           action={selectCategory}
+          editable
         />
       ))}
       <div

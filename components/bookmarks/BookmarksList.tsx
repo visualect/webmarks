@@ -51,7 +51,7 @@ export default function BookmarksList({
       {favorites.length !== 0 && (
         <>
           <Title label="Favorites" />
-          <div className="flex flex-row gap-4 py-8">
+          <div className="flex flex-col gap-4 py-8">
             {favorites?.map((bookmark) => (
               <BookmarkItem
                 key={bookmark.id}

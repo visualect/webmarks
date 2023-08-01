@@ -6,6 +6,8 @@ import Container from "@/components/Container";
 import Header from "@/components/header/Header";
 import AddCategoryModal from "@/components/modals/AddCategoryModal";
 import AddNewBookmarkModal from "@/components/modals/AddNewBookmarkModal";
+import DeleteCategoryModal from "@/components/modals/DeleteCategoryModal";
+import ToastClient from "@/utils/ToastClient";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -19,7 +21,9 @@ export default async function Home() {
 
   return (
     <>
+      <ToastClient />
       <AddCategoryModal />
+      <DeleteCategoryModal />
       <AddNewBookmarkModal categories={categories} bookmarks={bookmarks} />
       <Header currentUser={currentUser} />
       <Container>

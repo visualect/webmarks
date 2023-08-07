@@ -5,6 +5,7 @@ import { useState } from "react";
 import SectionSwitcher from "../SectionSwitcher";
 import FavoritesSection from "../sections/FavoritesSection";
 import LibrarySection from "../sections/LibrarySection";
+import Container from "../Container";
 
 interface IBookmarksProps {
   bookmarks: Bookmark[];
@@ -28,11 +29,11 @@ export default function BookmarksList({
   );
 
   return (
-    <div className="flex flex-col gap-4 py-10">
-      <SectionSwitcher setSection={setSection} />
-      <div className="h-screen">
-        {section === "library" ? librarySection : favoriteSection}
-      </div>
+    <div className="flex-1 w-full mx-0 my-auto gap-4">
+      <Container>
+        <SectionSwitcher setSection={setSection} />
+        <div>{section === "library" ? librarySection : favoriteSection}</div>
+      </Container>
     </div>
   );
 }

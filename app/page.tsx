@@ -30,11 +30,11 @@ export default async function Home() {
       <EditCategoryModal categories={categories} />
       <EditBookmarkModal bookmarks={bookmarks} categories={categories} />
       <AddNewBookmarkModal categories={categories} bookmarks={bookmarks} />
-      <Header currentUser={currentUser} />
-      <Container>
+      <div className="flex flex-col content-between min-h-screen gap-8">
+        <Header currentUser={currentUser} />
         <BookmarksList bookmarks={bookmarks} categories={categories} />
-      </Container>
-      <Footer />
+        <Footer />
+      </div>
     </>
   );
 }

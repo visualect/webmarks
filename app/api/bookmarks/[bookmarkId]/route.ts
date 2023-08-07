@@ -9,7 +9,7 @@ export async function DELETE(
   const id = params.bookmarkId;
   const currentUser = await getCurrentUser();
 
-  if (!currentUser) throw new Error("User not found");
+  if (!currentUser) throw new Error("Authorization error");
 
   const isUserOwner = await prisma.bookmark.findUnique({
     where: {
@@ -38,7 +38,8 @@ export async function PATCH(
   { params }: { params: { bookmarkId: string } }
 ) {
   const body = await req.json();
-  const value = body.value;
+  const data = body;
+  console.log(data);
   const id = params.bookmarkId;
   const currentUser = await getCurrentUser();
 
@@ -59,9 +60,7 @@ export async function PATCH(
         userId: currentUser.id,
         id,
       },
-      data: {
-        favorite: value,
-      },
+      data,
     });
   }
 

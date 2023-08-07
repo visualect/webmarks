@@ -1,5 +1,4 @@
 import { authOptions } from "@/configs/auth";
-import { UserWithCategory } from "@/types/types";
 import { prisma } from "@/utils/prismadb";
 import { User } from "@prisma/client";
 import { getServerSession } from "next-auth";

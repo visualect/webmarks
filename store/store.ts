@@ -1,3 +1,4 @@
+import { Bookmark } from "@prisma/client";
 import { create } from "zustand";
 
 export interface ICategoryState {
@@ -28,10 +29,16 @@ export interface IBookmarkState {
   isBookmarkModalActive: boolean;
   closeBookmarkModal: () => void;
   openBookmarkModal: () => void;
+  isEditModalActive: boolean;
+  closeEditModal: () => void;
+  openEditModal: () => void;
 }
 
 export const useBookmarkStore = create<IBookmarkState>()((set) => ({
   isBookmarkModalActive: false,
   closeBookmarkModal: () => set(() => ({ isBookmarkModalActive: false })),
   openBookmarkModal: () => set(() => ({ isBookmarkModalActive: true })),
+  isEditModalActive: false,
+  closeEditModal: () => set(() => ({ isEditModalActive: false })),
+  openEditModal: () => set(() => ({ isEditModalActive: true })),
 }));

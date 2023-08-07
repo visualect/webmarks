@@ -57,7 +57,7 @@ export default function BookmarkItem({
             src={iconUrl}
             width={size === "large" ? 40 : 24}
             height={size === "large" ? 40 : 24}
-            className="bg-transparent rounded-full"
+            className="bg-transparent rounded-sm"
           />
           <h2
             className={`
@@ -69,11 +69,6 @@ export default function BookmarkItem({
         </div>
         <div className="flex flex-row gap-1 items-center">
           <CategoryTag category={categoryObj} />
-          {/* <div
-            className={`${
-              colorVariants[categoryObj.color as keyof typeof colorVariants]
-            } w-6 h-6 rounded-full`}
-          ></div> */}
           <div className="relative">
             <div
               onClick={(e) => {
@@ -86,8 +81,8 @@ export default function BookmarkItem({
               <BsThreeDotsVertical size={20} />
               <BookmarkMenu
                 isOpen={isMenuOpen}
-                id={bookmark.id}
-                isFavorite={bookmark.favorite}
+                bookmark={bookmark}
+                closeMenu={() => setIsMenuOpen(false)}
               />
             </div>
           </div>

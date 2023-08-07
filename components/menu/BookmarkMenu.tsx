@@ -5,22 +5,30 @@ import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import axios from "axios";
 import { toast } from "sonner";
+import { useBookmarkStore } from "@/store/store";
+import Link from "next/link";
+import { Bookmark } from "@prisma/client";
 
 interface IBookmarkMenuProps {
   isOpen: boolean;
-  id: string;
-  isFavorite: boolean;
+  bookmark: Bookmark;
+  closeMenu: () => void;
 }
 
 export default function BookmarkMenu({
   isOpen,
-  id,
-  isFavorite,
+  bookmark,
+  closeMenu,
 }: IBookmarkMenuProps) {
   const router = useRouter();
 
+  const { id, favorite: isFavorite } = bookmark;
+
+  const { openEditModal } = useBookmarkStore();
+
   const handleDelete = async () => {
     try {
+      closeMenu();
       await axios.delete(`api/bookmarks/${id}`);
     } catch (err: any) {
       toast.error(err.message);
@@ -32,7 +40,8 @@ export default function BookmarkMenu({
 
   const handleAddToFavorites = async () => {
     try {
-      await axios.patch(`api/bookmarks/${id}`, { value: true });
+      closeMenu();
+      await axios.patch(`api/bookmarks/${id}`, { favorite: true });
     } catch (err: any) {
       toast.error(err.message);
     } finally {
@@ -43,7 +52,10 @@ export default function BookmarkMenu({
 
   const handleRemoveFromFavorites = async () => {
     try {
-      await axios.patch(`api/bookmarks/${id}`, { value: false });
+      closeMenu();
+      await axios.patch(`api/bookmarks/${id}`, {
+        favorite: false,
+      });
     } catch (err: any) {
       toast.error(err.message);
     } finally {
@@ -52,16 +64,24 @@ export default function BookmarkMenu({
     }
   };
 
+  const handleEditBookmark = () => {
+    openEditModal();
+    closeMenu();
+  };
+
   const body = (
     <ul className="flex flex-col gap-2 min-w-[150px]">
-      <MenuItem label="Edit" action={() => {}} />
+      <Link href={`/?edit_bookmark=${id}`}>
+        <MenuItem label="Edit" action={handleEditBookmark} />
+      </Link>
       <MenuItem label="Delete" action={handleDelete} />
-      <MenuItem label="Add to favorites" action={handleAddToFavorites} />
-      {isFavorite && (
+      {isFavorite ? (
         <MenuItem
           label="Remove from favorites"
           action={handleRemoveFromFavorites}
         />
+      ) : (
+        <MenuItem label="Add to favorites" action={handleAddToFavorites} />
       )}
     </ul>
   );

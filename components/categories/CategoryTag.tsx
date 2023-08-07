@@ -42,7 +42,11 @@ export default function CategoryTag({
           }}
         >
           <PiDotsThreeOutlineVerticalFill size={14} />
-          <CategoryMenu isOpen={isDropdownOpen} />
+          <CategoryMenu
+            isOpen={isDropdownOpen}
+            categoryId={category.id}
+            closeMenu={() => setIsDropdownOpen(false)}
+          />
         </div>
       )}
     </div>

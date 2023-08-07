@@ -34,7 +34,10 @@ export default function Header({ currentUser }: IHeaderProps) {
             className="relative underline underline-offset-4 cursor-pointer select-none"
           >
             {currentUser.name}
-            <ProfileMenu isOpen={isProfileMenuOpen} />
+            <ProfileMenu
+              isOpen={isProfileMenuOpen}
+              userEmail={currentUser.email as string}
+            />
           </div>
         </div>
       </Container>

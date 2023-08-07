@@ -29,7 +29,7 @@ export default function CategoryTag({
       onClick={action ? () => action(category.name) : undefined}
       className={`${
         colorVariants[category.color as keyof typeof colorVariants]
-      } flex flex-row gap-2 items-center justify-between font-bold text-sm rounded-full min-w-[60px] px-2 py-1 cursor-pointer border select-none`}
+      } flex flex-row gap-2 items-center justify-center font-bold text-sm rounded-full min-w-[60px] px-2 py-1 cursor-pointer border select-none`}
     >
       {`#${category.name}`}
       {editable && (

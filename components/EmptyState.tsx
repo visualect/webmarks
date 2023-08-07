@@ -2,7 +2,7 @@
 
 interface IEmptyStateProps {
   title: string;
-  subtitle: string;
+  subtitle?: string;
 }
 
 export default function EmptyState({ title, subtitle }: IEmptyStateProps) {

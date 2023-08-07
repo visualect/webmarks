@@ -8,7 +8,6 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import BookmarkMenu from "../menu/BookmarkMenu";
 import { useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
-import { colorVariants } from "@/utils/colours";
 
 interface IBookmarkProps {
   bookmark: Bookmark;
@@ -44,10 +43,12 @@ export default function BookmarkItem({
         w-full
         bg-white
         border 
-        rounded-xl
+        rounded-2xl
         cursor-pointer
         select-none
-        ${size === "large" ? "w-[240px] p-4" : "w-[220px] p-3"}
+        hover:drop-shadow-md
+        transition
+        ${size === "large" ? "w-[240px] p-4" : "w-[220px] px-4 py-3 h-[100px]"}
         `}
     >
       <div className="flex flex-row items-center justify-between gap-4">
@@ -57,7 +58,7 @@ export default function BookmarkItem({
             src={iconUrl}
             width={size === "large" ? 40 : 24}
             height={size === "large" ? 40 : 24}
-            className="bg-transparent rounded-sm"
+            className="bg-transparent rounded-md"
           />
           <h2
             className={`
@@ -88,7 +89,7 @@ export default function BookmarkItem({
           </div>
         </div>
       </div>
-      <div className="flex flex-row items-center">
+      <div className="flex flex-row items-center truncate fade">
         <p
           className={`
         w-full

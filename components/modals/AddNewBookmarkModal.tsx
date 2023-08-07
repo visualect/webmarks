@@ -10,6 +10,7 @@ import Button from "../buttons/Button";
 import axios from "axios";
 import { PiWarningLight } from "react-icons/pi";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface IAddNewBookmarkModalProps {
   categories: Category[];
@@ -37,9 +38,19 @@ export default function AddNewBookmarkModal({
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await axios.post("api/bookmarks", { url, name, description, category });
-    closeBookmarkModal();
-    router.refresh();
+    try {
+      await axios.post("api/bookmarks", { url, name, description, category });
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      closeBookmarkModal();
+      setUrl("");
+      setName("");
+      setDescription("");
+      setCategory("");
+      router.refresh();
+      toast.success("New bookmark successfully created!");
+    }
   };
 
   const body = (

@@ -18,10 +18,10 @@ export default function CategoriesList({
   );
 
   return (
-    <div className="flex flex-row flex-wrap gap-3 my-4">
+    <div className="flex flex-row flex-wrap gap-2">
       <div
         onClick={() => selectCategory("All")}
-        className="flex items-center justify-center bg-transparent border rounded-full min-w-[60px] p-1 cursor-pointer"
+        className="flex items-center justify-center bg-transparent border border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer"
       >
         <div className="font-bold text-sm">All</div>
       </div>
@@ -35,7 +35,7 @@ export default function CategoriesList({
       ))}
       <div
         onClick={openCategoryModal}
-        className="flex items-center justify-center bg-transparent border border-dashed rounded-full min-w-[60px] p-1 cursor-pointer"
+        className="flex items-center justify-center bg-transparent border border-dashed border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer"
       >
         <div className="font-bold text-sm">Add +</div>
       </div>

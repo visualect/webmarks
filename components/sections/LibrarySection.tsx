@@ -31,7 +31,7 @@ export default function LibrarySection({
   );
 
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <Title label="Library" />
       <CategoriesList
         categories={categories}
@@ -56,7 +56,7 @@ export default function LibrarySection({
         </div>
       </div>
       {displayedBookmarks?.length ? (
-        <div className="grid grid-cols-2 gap-4 py-8">
+        <div className="grid grid-cols-2 gap-4">
           {displayedBookmarks?.map((bookmark) => (
             <BookmarkItem
               key={bookmark.id}
@@ -67,11 +67,8 @@ export default function LibrarySection({
           ))}
         </div>
       ) : (
-        <EmptyState
-          title="No bookmarks found"
-          subtitle="Add new bookmarks to display them here"
-        />
+        <EmptyState title="No bookmarks found" />
       )}
-    </>
+    </div>
   );
 }

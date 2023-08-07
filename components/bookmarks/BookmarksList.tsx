@@ -28,9 +28,11 @@ export default function BookmarksList({
   );
 
   return (
-    <div className="py-10">
+    <div className="flex flex-col gap-4 py-10">
       <SectionSwitcher setSection={setSection} />
-      {section === "library" ? librarySection : favoriteSection}
+      <div className="h-screen">
+        {section === "library" ? librarySection : favoriteSection}
+      </div>
     </div>
   );
 }

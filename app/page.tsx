@@ -3,6 +3,7 @@ import { getCategoriesById } from "@/actions/getCategories";
 import getCurrentUser from "@/actions/getCurrentUser";
 import BookmarksList from "@/components/bookmarks/BookmarksList";
 import Container from "@/components/Container";
+import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import AddCategoryModal from "@/components/modals/AddCategoryModal";
 import AddNewBookmarkModal from "@/components/modals/AddNewBookmarkModal";
@@ -33,6 +34,7 @@ export default async function Home() {
       <Container>
         <BookmarksList bookmarks={bookmarks} categories={categories} />
       </Container>
+      <Footer />
     </>
   );
 }

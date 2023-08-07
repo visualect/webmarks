@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Input from "../Input";
 import Modal from "./Modal";
-import colors from "@/utils/colours";
+import { colors } from "@/utils/colours";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
 import axios from "axios";

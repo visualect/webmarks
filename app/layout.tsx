@@ -17,7 +17,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`relative ${inter.className} bg-gradient-to-r from-gray-50 from-1% to-100% to-white`}
+        className={`relative ${inter.className} text-gray-800 bg-gradient-to-r from-gray-50 from-1% to-100% to-white`}
       >
         {children}
       </body>

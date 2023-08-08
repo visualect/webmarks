@@ -31,7 +31,7 @@ export default function CategoryTag({
         colorVariants[category.color as keyof typeof colorVariants]
       } flex flex-row gap-2 items-center justify-center font-bold text-sm rounded-full min-w-[60px] px-2 py-1 cursor-pointer border select-none`}
     >
-      {`#${category.name}`}
+      {`${category.name}`}
       {editable && (
         <div
           className="relative"

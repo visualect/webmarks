@@ -37,8 +37,8 @@ export default function LibrarySection({
         categories={categories}
         selectCategory={setSelectedCategory}
       />
-      <div className="flex flex-row items-center justify-between">
-        <div>
+      <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-8">
+        <div className="w-full sm:w-auto">
           <Input
             placeholder="Search"
             value={searchedValue}
@@ -51,12 +51,12 @@ export default function LibrarySection({
             label="Add bookmark +"
             style="primary"
             size="normal"
-            action={() => openBookmarkModal()}
+            action={openBookmarkModal}
           />
         </div>
       </div>
       {displayedBookmarks?.length ? (
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4">
           {displayedBookmarks?.map((bookmark) => (
             <BookmarkItem
               key={bookmark.id}

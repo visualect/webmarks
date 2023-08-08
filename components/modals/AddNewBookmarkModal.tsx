@@ -54,9 +54,9 @@ export default function AddNewBookmarkModal({
   };
 
   const body = (
-    <div className="flex flex-col gap-4 w-[500px]">
+    <div className="flex flex-col gap-8 w-[500px]">
       <h1 className="font-bold text-center">Create new bookmark</h1>
-      <form className="flex flex-col gap-4 w-full" onSubmit={onSubmit}>
+      <form className="flex flex-col gap-6 w-full" onSubmit={onSubmit}>
         <div className="flex flex-col gap-1">
           <p className="text-xs text-gray-500">Paste a URL</p>
           <Input
@@ -114,7 +114,9 @@ export default function AddNewBookmarkModal({
             </>
           )}
         </div>
-        <Button label="Add" style="primary" size="normal" />
+        <div className="flex justify-end">
+          <Button label="Add" style="primary" size="normal" />
+        </div>
       </form>
     </div>
   );

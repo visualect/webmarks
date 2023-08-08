@@ -2,7 +2,6 @@ import { getBookmarksById } from "@/actions/getBookmarks";
 import { getCategoriesById } from "@/actions/getCategories";
 import getCurrentUser from "@/actions/getCurrentUser";
 import BookmarksList from "@/components/bookmarks/BookmarksList";
-import Container from "@/components/Container";
 import Footer from "@/components/footer/Footer";
 import Header from "@/components/header/Header";
 import AddCategoryModal from "@/components/modals/AddCategoryModal";

@@ -3,11 +3,11 @@
 import getFavicon from "@/actions/getFavicon";
 import { Bookmark, Category } from "@prisma/client";
 import Image from "next/image";
-import CategoryTag from "../categories/CategoryTag";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import BookmarkMenu from "../menu/BookmarkMenu";
 import { useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import { GoLinkExternal } from "react-icons/go";
 
 interface IBookmarkProps {
   bookmark: Bookmark;
@@ -33,26 +33,45 @@ export default function BookmarkItem({
     (item) => item.name === bookmark.category
   ) as Category;
 
+  const borderColorVariants = {
+    indigo: "bg-gradient-to-bl from-white via-indigo-50 to-white",
+    rose: "bg-gradient-to-bl from-white via-rose-50 to-white",
+    emerald: "bg-gradient-to-bl from-white via-emerald-50 to-white",
+    amber: "bg-gradient-to-bl from-white via-amber-50 to-white",
+    fuchsia: "bg-gradient-to-bl from-white via-fuchsia-50 to-white",
+  };
+
   return (
     <div
       onClick={() => window.open(url, "_blank")}
       className={`
+        relative
         flex
         flex-col
         gap-2
-        w-full
         bg-white
-        border 
+        border
         rounded-2xl
         cursor-pointer
         select-none
-        hover:drop-shadow-md
+        hover:shadow-md
+        ease-out
         transition
-        ${size === "large" ? "w-[240px] p-4" : "w-[220px] px-4 py-3 h-[100px]"}
+        min-w-[288px]
+        group
+        ${
+          borderColorVariants[
+            categoryObj.color as keyof typeof borderColorVariants
+          ]
+        }
+        ${size === "large" ? " p-4" : "px-4 py-3 h-[100px]"}
         `}
     >
+      <div className="p-2 bg-white shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
+        <GoLinkExternal />
+      </div>
       <div className="flex flex-row items-center justify-between gap-4">
-        <div className="flex flex-row items-center gap-2">
+        <div className="flex flex-row items-center gap-4">
           <Image
             alt="favicon"
             src={iconUrl}
@@ -62,14 +81,14 @@ export default function BookmarkItem({
           />
           <h2
             className={`
-        ${size === "large" ? "text-base font-semibold" : "text-sm font-medium"}
+        ${size === "large" ? "text-base font-bold" : "text-sm font-semibold"}
         `}
           >
             {name}
           </h2>
         </div>
         <div className="flex flex-row gap-1 items-center">
-          <CategoryTag category={categoryObj} />
+          <div className="text-xs font-bold">#{categoryObj.name}</div>
           <div className="relative">
             <div
               onClick={(e) => {

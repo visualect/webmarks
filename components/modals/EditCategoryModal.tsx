@@ -1,14 +1,12 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Input from "../Input";
+import Input from "../NewInput";
 import Modal from "./Modal";
-import { colors } from "@/utils/colours";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
-import { colorVariants } from "@/utils/colours";
 import { toast } from "sonner";
 import { Category } from "@prisma/client";
 
@@ -41,6 +39,7 @@ export default function EditCategoryModal({
   }, [currentCategoryId, category]);
 
   const { isEditModalActive: isOpen, closeEditModal } = useCategoryStore();
+
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
@@ -58,6 +57,22 @@ export default function EditCategoryModal({
       toast.success("Category was successfully updated!");
     }
   };
+
+  const colorVariants = {
+    indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
+    rose: "bg-rose-500/5 text-rose-500 border-rose-300",
+    emerald: "bg-emerald-500/5 text-emerald-500 border-emerald-300",
+    amber: "bg-amber-500/5 text-amber-500 border-amber-300",
+    fuchsia: "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300",
+  };
+
+  const colors = [
+    { value: "indigo", label: "Indigo" },
+    { value: "emerald", label: "Emarald" },
+    { value: "rose", label: "Rose" },
+    { value: "amber", label: "Amber" },
+    { value: "fuchsia", label: "Fuchsia" },
+  ];
 
   const body = (
     <div className="p-10">

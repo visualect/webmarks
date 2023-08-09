@@ -47,7 +47,7 @@ export const authOptions: AuthOptions = {
           hashedPassword
         );
 
-        if (!isCorrectPassword) throw new Error("Invalid password");
+        if (!isCorrectPassword) throw new Error("Incorrect password");
 
         return user as User;
       },

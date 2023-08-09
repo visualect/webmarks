@@ -15,9 +15,9 @@ export default function FavoritesSection({
   categories,
 }: IFavoritesSectionProps) {
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <Title label="Favorites" />
-      <div className="flex flex-col gap-4 py-8">
+      <div className="flex flex-col gap-4">
         {favorites.length !== 0 ? (
           favorites.map((bookmark) => (
             <BookmarkItem
@@ -34,6 +34,6 @@ export default function FavoritesSection({
           />
         )}
       </div>
-    </>
+    </div>
   );
 }

@@ -1,16 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "./Modal";
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
 import Input from "../Input";
 import { Bookmark, Category } from "@prisma/client";
-import Select from "react-select";
 import Button from "../buttons/Button";
 import axios from "axios";
 import { PiWarningLight } from "react-icons/pi";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface IAddNewBookmarkModalProps {
   categories: Category[];
@@ -28,13 +34,6 @@ export default function AddNewBookmarkModal({
   const { isBookmarkModalActive, closeBookmarkModal } = useBookmarkStore();
   const { openCategoryModal } = useCategoryStore();
   const router = useRouter();
-
-  const categoryOptions = categories.map((category) => {
-    return {
-      value: category.id,
-      label: category.name,
-    };
-  });
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -106,16 +105,27 @@ export default function AddNewBookmarkModal({
           ) : (
             <>
               <p className="text-xs text-gray-500">Choose a category</p>
-              <Select
-                options={categoryOptions}
-                placeholder="Category"
-                onChange={(categoryObj) => setCategory(categoryObj!.label)} // !!!
-              />
+              <Select onValueChange={(value) => setCategory(value)}>
+                <SelectTrigger className="w-full text-sm rounded-xl px-4 py-2 ring-0 ring-offset-0 focus:ring-offset-0 focus:ring-0">
+                  <SelectValue placeholder="Category" />
+                </SelectTrigger>
+                <SelectContent className="rounded-xl">
+                  {categories.map((item) => (
+                    <SelectItem
+                      key={item.id}
+                      value={item.name}
+                      className="rounded-xl"
+                    >
+                      {item.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </>
           )}
         </div>
-        <div className="flex justify-end">
-          <Button label="Add" style="primary" size="normal" />
+        <div className="flex justify-center">
+          <Button label="Create" style="primary" size="normal" />
         </div>
       </form>
     </div>

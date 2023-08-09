@@ -39,7 +39,7 @@ export default function RegisterPage() {
         placeholder={"Password"}
         type="password"
       />
-      <Button label="Sign up" style="primary" action={() => {}} size="normal" />
+      <Button label="Sign up" style="primary" size="normal" />
     </form>
   );
 

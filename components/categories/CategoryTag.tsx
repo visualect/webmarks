@@ -1,7 +1,6 @@
 "use client";
 
 import { Category } from "@prisma/client";
-import { colorVariants } from "@/utils/colours";
 import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
 import CategoryMenu from "../menu/CategoryMenu";
@@ -23,6 +22,14 @@ export default function CategoryTag({
   const categoryRef = useClickOutside(() => {
     setIsDropdownOpen(false);
   });
+
+  const colorVariants = {
+    indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
+    rose: "bg-rose-500/5 text-rose-500 border-rose-300",
+    emerald: "bg-emerald-500/5 text-emerald-500 border-emerald-300",
+    amber: "bg-amber-500/5 text-amber-500 border-amber-300",
+    fuchsia: "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300",
+  };
 
   return (
     <div

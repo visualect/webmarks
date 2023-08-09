@@ -11,7 +11,7 @@ interface IButtonProps {
 export default function Button({
   label,
   action,
-  disabled = false,
+  disabled,
   style,
   size,
 }: IButtonProps) {
@@ -28,13 +28,16 @@ export default function Button({
           ? `bg-gradient-to-t from-gray-800 to-gray-700 text-white`
           : `bg-gradient-to-t from-gray-100 to-gray-50 text-gray-800`
       }
+      ${disabled && "opacity-50 hover:scale-100 cursor-not-allowed"}
       bg-white  
       border-gray-200
       border
       rounded-xl
       hover:scale-105
       transition
+      duration-100
       ease-out
+      w-full
       `}
       disabled={disabled}
       onClick={action}

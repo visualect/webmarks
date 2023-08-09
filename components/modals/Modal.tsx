@@ -1,6 +1,7 @@
 "use client";
 
 import { IoClose } from "react-icons/io5";
+import { useEffect, useState } from "react";
 
 interface IModalProps {
   body: React.ReactNode;
@@ -9,19 +10,36 @@ interface IModalProps {
 }
 
 export default function Modal({ body, isOpen, onClose }: IModalProps) {
+  const [show, setShow] = useState(isOpen);
+
+  useEffect(() => {
+    setShow(isOpen);
+  }, [isOpen]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center z-30 backdrop-blur-[2px]">
+    <div
+      className={`fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center z-30 transition duration-100 ease-out ${
+        show
+          ? "backdrop-blur-[2px] bg-white/25"
+          : "backdrop-blur-[0px] bg-transparent"
+      }`}
+    >
       <div
-        className={`relative flex flex-col justify-center items-center p-10 bg-white border rounded-xl max-w-[600px] ${
-          isOpen ? "opacity-100" : "opacity-0"
-        } transition duration-100`}
+        className={`relative flex justify-center items-center p-10 bg-white border rounded-xl max-w-[600px] ${
+          show ? "scale-100 opacity-100" : "scale-75 opacity-0"
+        } transition duration-100 ease-out shadow-md`}
       >
         <IoClose
           size={24}
-          className="absolute right-3 top-3 cursor-pointer"
-          onClick={onClose}
+          className="absolute right-4 top-4 cursor-pointer"
+          onClick={() => {
+            setShow(false);
+            setTimeout(() => {
+              onClose();
+            }, 100);
+          }}
         />
         {body}
       </div>

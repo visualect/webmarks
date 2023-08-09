@@ -3,17 +3,31 @@
 import { useState } from "react";
 import Input from "../Input";
 import Modal from "./Modal";
-import { colors } from "@/utils/colours";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { colorVariants } from "@/utils/colours";
 
 export default function AddCategoryModal() {
   const [name, setName] = useState("");
   const [color, setColor] = useState("");
   const router = useRouter();
+
+  const colorVariants = {
+    indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
+    rose: "bg-rose-500/5 text-rose-500 border-rose-300",
+    emerald: "bg-emerald-500/5 text-emerald-500 border-emerald-300",
+    amber: "bg-amber-500/5 text-amber-500 border-amber-300",
+    fuchsia: "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300",
+  };
+
+  const colors = [
+    { value: "indigo", label: "Indigo" },
+    { value: "emerald", label: "Emarald" },
+    { value: "rose", label: "Rose" },
+    { value: "amber", label: "Amber" },
+    { value: "fuchsia", label: "Fuchsia" },
+  ];
 
   const isOpen = useCategoryStore((state) => state.isCategoryModalActive);
   const closeCategoryModal = useCategoryStore(

@@ -48,7 +48,7 @@ export default function LibrarySection({
         </div>
         <div>
           <Button
-            label="Add bookmark +"
+            label="New bookmark"
             style="primary"
             size="normal"
             action={openBookmarkModal}

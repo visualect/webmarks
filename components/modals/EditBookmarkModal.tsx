@@ -2,7 +2,7 @@
 
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
 import Modal from "./Modal";
-import Input from "../Input";
+import Input from "../NewInput";
 import { PiWarningLight } from "react-icons/pi";
 import Select from "react-select";
 import Button from "../buttons/Button";

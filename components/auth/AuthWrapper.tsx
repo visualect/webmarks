@@ -14,7 +14,7 @@ interface IAuthWrapper {
 
 export default function AuthWrapper({ form, authType }: IAuthWrapper) {
   return (
-    <div className="w-full h-screen flex justify-center items-center bg-neutral-500">
+    <div className="w-full h-screen flex justify-center items-center bg-gradient-to-r from-gray-100 to-gray-300">
       <ToastClient />
       <div className="flex flex-col gap-4 py-10 px-20 border rounded-3xl bg-white">
         <h1 className="text-center font-bold text-xl mb-4">

@@ -95,7 +95,7 @@ export default function BookmarkItem({
                 e.stopPropagation();
                 setIsMenuOpen((prev) => !prev);
               }}
-              className="p-3 hover:bg-gray-100 rounded-full"
+              className="p-3 hover:bg-gray-200 rounded-full transiiton duration-100"
               ref={menuRef}
             >
               <BsThreeDotsVertical size={20} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Input from "../NewInput";
+import Input from "../Input";
 import Modal from "./Modal";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";

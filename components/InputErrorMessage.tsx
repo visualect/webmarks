@@ -10,7 +10,7 @@ export default function InputErrorMessage({
   message,
 }: IInputErrorMessageProps) {
   return (
-    <p className="text-xs font-bold text-rose-500" role="alert">
+    <p className="text-xs font-semibold text-rose-500" role="alert">
       {message}
     </p>
   );

@@ -9,6 +9,7 @@ interface IInputProps {
   required: boolean;
   label: Path<FieldValues>;
   name: Path<FieldValues>;
+  error: boolean;
 }
 
 export default function NewInput({
@@ -18,6 +19,7 @@ export default function NewInput({
   name,
   placeholder,
   type,
+  error,
 }: IInputProps) {
   return (
     <div className="flex flex-col gap-1">
@@ -27,7 +29,9 @@ export default function NewInput({
       <input
         id={name}
         {...register(name, { required })}
-        className="w-full text-sm sm:w-auto px-4 py-2 border rounded-xl focus:outline-none"
+        className={`
+        ${error ? "border-rose-500" : "border-neutral-300"}
+        w-full text-sm sm:w-auto px-4 py-2 border rounded-xl focus:outline-none`}
         placeholder={placeholder}
         type={type}
       />

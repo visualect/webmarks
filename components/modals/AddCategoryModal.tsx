@@ -7,11 +7,27 @@ import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+  Controller,
+} from "react-hook-form";
+import { toast } from "sonner";
+import NewInput from "../NewInput";
 
 export default function AddCategoryModal() {
-  const [name, setName] = useState("");
-  const [color, setColor] = useState("");
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    control,
+    setValue,
+    formState: { errors, isSubmitting, isDirty, isValid },
+  } = useForm<FieldValues>();
 
   const colorVariants = {
     indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
@@ -34,48 +50,70 @@ export default function AddCategoryModal() {
     (state) => state.closeCategoryModal
   );
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!name && !color) return;
-    await axios.post("/api/categories", { name, color });
-    setColor("");
-    setName("");
-    closeCategoryModal();
-    router.refresh();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    try {
+      await axios.post("/api/categories", data);
+    } catch (err: any) {
+      toast.error(err.message);
+    } finally {
+      reset();
+      closeCategoryModal();
+      router.refresh();
+    }
   };
 
   const body = (
-    <div className="p-10">
-      <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-        <h1 className="font-semibold text-xl">Create new category</h1>
+    <div className="flex flex-col gap-8 w-[350px]">
+      <h1 className="font-bold text-center">Create new category</h1>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full">
-          <p className="text-xs text-gray-500 mb-2">Name a new category</p>
-          <Input
-            value={name}
-            placeholder="E.g. Books"
-            onChange={(e) => setName(e.target.value)}
+          <NewInput
+            register={register}
+            label={"Name a new category"}
+            name="name"
+            required
+            placeholder="Name"
             type="text"
+            error={!!errors.name?.message}
           />
         </div>
-        <hr />
         <div className="w-full">
           <p className="text-xs text-gray-500 mb-2">Choose a color</p>
           <div className="flex flex-row gap-2 justify-between">
             {colors.map((item) => (
-              <div
-                className={`${
-                  colorVariants[item.value as keyof typeof colorVariants]
-                } border rounded-xl p-2 text-sm font-bold cursor-pointer`}
-                key={item.label}
-                onClick={() => setColor(item.value)}
-              >
-                {item.label}
-              </div>
+              <Controller
+                name="color"
+                key={item.value}
+                rules={{ required: true }}
+                control={control}
+                render={() => (
+                  <div
+                    className={`${
+                      colorVariants[item.value as keyof typeof colorVariants]
+                    } border rounded-xl p-2 text-sm font-bold cursor-pointer`}
+                    key={item.label}
+                    onClick={() =>
+                      setValue("color", item.value, {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      })
+                    }
+                  >
+                    {item.label}
+                  </div>
+                )}
+              />
             ))}
           </div>
         </div>
         <div className="flex flex-row justify-end gap-2">
-          <Button label="Save" style="primary" size="small" />
+          <Button
+            label="Save"
+            style="primary"
+            size="normal"
+            isSumbitting={isSubmitting}
+            disabled={isSubmitting || !isValid || !isDirty}
+          />
         </div>
       </form>
     </div>

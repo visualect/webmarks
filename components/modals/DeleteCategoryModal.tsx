@@ -29,11 +29,14 @@ export default function DeleteCategoryModal() {
   };
 
   const body = (
-    <div className="flex flex-col gap-4 items-center">
-      <PiWarningLight size={48} color="text-red-400" />
+    <div className="flex flex-col gap-8 items-center">
+      <PiWarningLight size={48} className="text-rose-500" />
       <h1 className="text-center">
-        By deleting this category you will also delete all notes in this
-        category. Are you sure you want to delete this category?
+        By deleting this category{" "}
+        <span className="font-semibold">
+          you will also delete all notes in this category.
+        </span>{" "}
+        Are you sure you want to delete this category?
       </h1>
       <div className="flex flex-row gap-4">
         <Button

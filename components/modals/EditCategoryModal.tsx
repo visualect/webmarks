@@ -9,6 +9,14 @@ import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { Category } from "@prisma/client";
+import {
+  FieldValues,
+  SubmitHandler,
+  useForm,
+  Controller,
+} from "react-hook-form";
+import NewInput from "../NewInput";
+import CategoryTag from "../categories/CategoryTag";
 
 interface IEditCategoryModalProps {
   categories: Category[];
@@ -17,8 +25,6 @@ interface IEditCategoryModalProps {
 export default function EditCategoryModal({
   categories,
 }: IEditCategoryModalProps) {
-  const [name, setName] = useState("");
-  const [color, setColor] = useState("");
   const router = useRouter();
   const params = useSearchParams();
   const currentCategoryId = params.get("edit_category");
@@ -27,27 +33,31 @@ export default function EditCategoryModal({
     return categories.find((item) => item.id === currentCategoryId);
   }, [categories, currentCategoryId]);
 
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    control,
+    setValue,
+    formState: { errors, isSubmitting, isDirty, isValid },
+  } = useForm<FieldValues>();
+
   useEffect(() => {
     if (currentCategoryId && category) {
-      setName(category.name);
-      setColor(category.color);
+      setValue("name", category.name);
+      setValue("color", category.color);
     }
     return () => {
-      setName("");
-      setColor("");
+      reset();
     };
-  }, [currentCategoryId, category]);
+  }, [category, currentCategoryId, reset, setValue]);
 
   const { isEditModalActive: isOpen, closeEditModal } = useCategoryStore();
 
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      if (!name && !color) return;
-      await axios.patch(`/api/categories/${currentCategoryId}`, {
-        name,
-        color,
-      });
+      await axios.patch(`/api/categories/${currentCategoryId}`, data);
     } catch (err: any) {
       toast.error(err.message);
     } finally {
@@ -75,37 +85,54 @@ export default function EditCategoryModal({
   ];
 
   const body = (
-    <div className="p-10">
-      <form className="flex flex-col gap-4" onSubmit={onSubmit}>
-        <h1 className="font-semibold text-xl">Edit category</h1>
+    <div className="flex flex-col gap-8 w-[350px]">
+      <h1 className="font-bold text-center">Edit category</h1>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full">
-          <p className="text-xs text-gray-500 mb-2">Name</p>
-          <Input
-            value={name}
-            placeholder="E.g. Books"
-            onChange={(e) => setName(e.target.value)}
+          <NewInput
+            register={register}
+            label="Name"
+            name="name"
+            placeholder="Name"
             type="text"
+            required
+            error={!!errors.name?.message}
           />
         </div>
-        <hr />
         <div className="w-full">
           <p className="text-xs text-gray-500 mb-2">Color</p>
           <div className="flex flex-row gap-2 justify-between">
             {colors.map((item) => (
-              <div
-                className={`${
-                  colorVariants[item.value as keyof typeof colorVariants]
-                } border rounded-xl p-2 text-sm font-bold cursor-pointer`}
+              <Controller
+                name="color"
                 key={item.label}
-                onClick={() => setColor(item.value)}
-              >
-                {item.label}
-              </div>
+                control={control}
+                rules={{ required: true }}
+                render={() => (
+                  <div
+                    className={`${
+                      colorVariants[item.value as keyof typeof colorVariants]
+                    } border rounded-xl p-2 text-sm font-bold cursor-pointer`}
+                    key={item.label}
+                    onClick={() =>
+                      setValue("color", item.value, { shouldDirty: true })
+                    }
+                  >
+                    {item.label}
+                  </div>
+                )}
+              />
             ))}
           </div>
         </div>
         <div className="flex flex-row justify-end gap-2">
-          <Button label="Save changes" style="primary" size="small" />
+          <Button
+            label="Save changes"
+            style="primary"
+            size="normal"
+            isSumbitting={isSubmitting}
+            disabled={isSubmitting || !isDirty || !isValid}
+          />
         </div>
       </form>
     </div>

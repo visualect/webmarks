@@ -30,7 +30,7 @@ export default function NewInput({
         id={name}
         {...register(name, { required })}
         className={`
-        ${error ? "border-rose-500" : "border-neutral-300"}
+        ${error ? "border-rose-500" : "border-neutral-200"}
         w-full text-sm sm:w-auto px-4 py-2 border rounded-xl focus:outline-none`}
         placeholder={placeholder}
         type={type}

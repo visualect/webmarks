@@ -2,15 +2,27 @@
 
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
 import Modal from "./Modal";
-import Input from "../Input";
 import { PiWarningLight } from "react-icons/pi";
-import Select from "react-select";
 import Button from "../buttons/Button";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { Bookmark, Category } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
+import {
+  FieldValues,
+  useForm,
+  SubmitHandler,
+  Controller,
+} from "react-hook-form";
+import NewInput from "../NewInput";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface isEditModalActiveProps {
   categories: Category[];
@@ -22,13 +34,19 @@ export default function EditBookmarkModal({
   bookmarks,
 }: isEditModalActiveProps) {
   const { isEditModalActive, closeEditModal } = useBookmarkStore();
-  const [url, setUrl] = useState("");
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
   const router = useRouter();
   const params = useSearchParams();
   const { openCategoryModal } = useCategoryStore();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    control,
+    setValue,
+    formState: { errors, isSubmitting, isDirty, isValid },
+  } = useForm<FieldValues>();
 
   const bookmark = useMemo(
     () => bookmarks.find((item) => item.id === params.get("edit_bookmark")),
@@ -37,35 +55,19 @@ export default function EditBookmarkModal({
 
   useEffect(() => {
     if (params.get("edit_bookmark") && bookmark) {
-      setUrl(bookmark.url);
-      setName(bookmark.name);
-      setDescription(bookmark.description);
-      setCategory(bookmark.category);
+      setValue("url", bookmark.url);
+      setValue("name", bookmark.name);
+      setValue("description", bookmark.description);
+      setValue("category", bookmark.category);
     }
     return () => {
-      setUrl("");
-      setName("");
-      setDescription("");
-      setCategory("");
+      reset();
     };
-  }, [params, bookmarks, bookmark]);
+  }, [bookmark, params, reset, setValue]);
 
-  const categoryOptions = categories.map((category) => {
-    return {
-      value: category.id,
-      label: category.name,
-    };
-  });
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      await axios.patch(`/api/bookmarks/${bookmark.id}`, {
-        url,
-        name,
-        description,
-        category,
-      });
+      await axios.patch(`/api/bookmarks/${bookmark.id}`, data);
     } catch (err: any) {
       toast.error(err.message);
     } finally {
@@ -77,34 +79,43 @@ export default function EditBookmarkModal({
   };
 
   const body = (
-    <div className="flex flex-col gap-4 w-[500px]">
+    <div className="flex flex-col gap-8 w-[500px]">
       <h1 className="font-bold text-center">Edit bookmark</h1>
-      <form className="flex flex-col gap-4 w-full" onSubmit={handleSubmit}>
+      <form
+        className="flex flex-col gap-4 w-full"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex flex-col gap-1">
-          <p className="text-xs text-gray-500">URL</p>
-          <Input
-            value={url}
-            placeholder="E.g. https://domain.com/pathname"
+          <NewInput
+            register={register}
+            required
+            name="url"
+            placeholder="URL"
+            label="URL"
             type="text"
-            onChange={(e) => setUrl(e.target.value)}
+            error={!!errors.url?.message}
           />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-xs text-gray-500">Name</p>
-          <Input
-            value={name}
-            placeholder="E.g. Overreacted"
+          <NewInput
+            register={register}
+            required
+            name="name"
+            placeholder="Name"
+            label="Name"
             type="text"
-            onChange={(e) => setName(e.target.value)}
+            error={!!errors.name?.message}
           />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-xs text-gray-500">Description</p>
-          <Input
-            value={description}
-            placeholder="E.g. Personal blog by creator of Redux"
+          <NewInput
+            register={register}
+            required
+            name="description"
+            placeholder="Description"
+            label="Description"
             type="text"
-            onChange={(e) => setDescription(e.target.value)}
+            error={!!errors.description?.message}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -129,19 +140,39 @@ export default function EditBookmarkModal({
           ) : (
             <>
               <p className="text-xs text-gray-500">Category</p>
-              <Select
-                options={categoryOptions}
-                placeholder="Category"
-                value={{
-                  value: "",
-                  label: category,
-                }}
-                onChange={(categoryObj) => setCategory(categoryObj!.label)} // !!!
+              <Controller
+                name="category"
+                control={control}
+                rules={{ required: true }}
+                render={({ field }) => (
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <SelectTrigger className="w-full text-sm rounded-xl px-4 py-2 ring-0 ring-offset-0 focus:ring-offset-0 focus:ring-0">
+                      <SelectValue placeholder="Category" />
+                    </SelectTrigger>
+                    <SelectContent className="rounded-xl">
+                      {categories.map((item) => (
+                        <SelectItem
+                          key={item.id}
+                          value={item.name}
+                          className="rounded-xl"
+                        >
+                          {item.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                )}
               />
             </>
           )}
         </div>
-        <Button label="Save changes" style="primary" size="normal" />
+        <Button
+          label="Save changes"
+          style="primary"
+          size="normal"
+          isSumbitting={isSubmitting}
+          disabled={isSubmitting || !isDirty || !isValid}
+        />
       </form>
     </div>
   );

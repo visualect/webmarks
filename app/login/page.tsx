@@ -21,7 +21,8 @@ export default function LoginPage() {
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm<FieldValues>({
     defaultValues: {
-      email: "example@mail.com",
+      email: "demo@mail.com",
+      password: "demo",
     },
   });
 

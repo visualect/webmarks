@@ -1,34 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Webmarks
 
-## Getting Started
+Welcome to the Webmarks! This is a pet project that I've developed to showcase my front-end development skills. With this app, you can easily manage and organize your bookmarks in one place. It's simple, intuitive, and designed with user experience in mind.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- **User-Friendly Interface:** The app provides a clean and user-friendly interface that allows users to quickly add, edit, and delete bookmarks.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Categorize Bookmarks:** Organize your bookmarks by categorizing them. Whether it's work, leisure, or any other category, you have full control.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Search Functionality:** Looking for a specific bookmark? The search functionality helps you find bookmarks instantly, even as your collection grows.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Responsive Design:** Access your bookmarks from any device. The app's responsive design ensures a seamless experience on desktops, tablets, and smartphones.
 
-## Learn More
+- **Customizable Appearance:** Make the app your own by choosing from a range of themes and customization options to match your style.
 
-To learn more about Next.js, take a look at the following resources:
+## Technologies Used
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- HTML
+- tailwind / shadcn ui
+- TypeScript
+- React
+- Next
+- Prisma
+- next-auth
+- zustand
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+If you have any questions, suggestions, or just want to connect, you can reach me at discord ```visualect```.

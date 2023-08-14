@@ -13,6 +13,11 @@ export default function Modal({ body, isOpen, onClose }: IModalProps) {
   const [show, setShow] = useState(isOpen);
 
   useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = ""; // Re-enable scrolling
+    }
     setShow(isOpen);
   }, [isOpen]);
 
@@ -25,7 +30,7 @@ export default function Modal({ body, isOpen, onClose }: IModalProps) {
       }`}
     >
       <div
-        className={`relative flex justify-center items-center p-14 bg-white border rounded-3xl max-w-[600px] ${
+        className={`relative flex justify-center items-center p-14 bg-white border rounded-3xl w-full sm:max-w-[600px] ${
           show ? "scale-100 opacity-100" : "scale-75 opacity-0"
         } transition duration-100 ease-out`}
       >

@@ -67,7 +67,7 @@ export default function AddNewBookmarkModal({
   };
 
   const body = (
-    <div className="flex flex-col gap-8 w-[500px]">
+    <div className="flex flex-col gap-8 w-full sm:w-[500px]">
       <h1 className="font-bold text-center">Create new bookmark</h1>
       <form
         className="flex flex-col gap-6 w-full"

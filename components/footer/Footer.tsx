@@ -8,7 +8,7 @@ export default function Footer() {
   return (
     <footer className=" bg-transparent">
       <Container>
-        <div className="flex flex-row items-center justify-between gap-8 py-5">
+        <div className="flex flex-row items-center justify-between gap-8 py-10">
           <div className="flex flex-row gap-1 text-sm group relative">
             Made by{" "}
             <a

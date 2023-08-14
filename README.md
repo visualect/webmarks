@@ -16,11 +16,10 @@ Welcome to the Webmarks! This is a pet project that I've developed to showcase m
 
 ## Technologies Used
 
-- HTML
-- tailwind / shadcn ui
 - TypeScript
 - React
 - Next
+- tailwind / shadcn ui
 - Prisma
 - next-auth
 - zustand

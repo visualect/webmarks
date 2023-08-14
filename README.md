@@ -27,4 +27,4 @@ Welcome to the Webmarks! This is a pet project that I've developed to showcase m
 
 ## Contact
 
-If you have any questions, suggestions, or just want to connect, you can reach me at discord 'visualect'.
+If you have any questions, suggestions, or just want to connect, you can reach me at discord ```visualect```.

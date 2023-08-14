@@ -6,7 +6,8 @@ import SectionSwitcher from "../SectionSwitcher";
 import FavoritesSection from "../sections/FavoritesSection";
 import LibrarySection from "../sections/LibrarySection";
 import Container from "../Container";
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 interface IBookmarksProps {
   bookmarks: Bookmark[];
@@ -18,6 +19,11 @@ export default function BookmarksList({
   categories,
 }: IBookmarksProps) {
   const [section, setSection] = useState<"library" | "favorites">("library");
+  const router = useRouter();
+
+  useEffect(() => {
+    router.push("/");
+  }, [router]);
 
   const favorites = useMemo(
     () => bookmarks.filter((item) => item.favorite),

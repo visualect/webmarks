@@ -98,7 +98,7 @@ export default function LoginPage() {
           label={"Sign in"}
           style="primary"
           size="normal"
-          disabled={isSubmitting || !isDirty || !isValid || isRedirecting}
+          disabled={isSubmitting || !isValid || isRedirecting}
           isSumbitting={isSubmitting || isRedirecting}
         />
       </div>

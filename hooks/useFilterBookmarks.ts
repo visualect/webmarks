@@ -1,4 +1,5 @@
 import { Bookmark } from "@prisma/client";
+import { useMemo } from "react";
 
 export default function useFilterBookmarks(
   bookmarks: Bookmark[],
@@ -7,10 +8,15 @@ export default function useFilterBookmarks(
 ) {
   let displayedBookmarks;
 
-  const filteredBookmarksByCategory =
-    selectedCategory === "All"
-      ? bookmarks
-      : bookmarks?.filter((bookmark) => bookmark.category === selectedCategory);
+  const filteredBookmarksByCategory = useMemo(
+    () =>
+      selectedCategory === "All"
+        ? bookmarks
+        : bookmarks?.filter(
+            (bookmark) => bookmark.category === selectedCategory
+          ),
+    [bookmarks, selectedCategory]
+  );
 
   if (searchedValue) {
     displayedBookmarks = filteredBookmarksByCategory.filter(

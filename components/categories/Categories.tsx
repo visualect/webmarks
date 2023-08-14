@@ -7,11 +7,13 @@ import { useCategoryStore } from "@/store/store";
 interface ICategoriesListProps {
   categories: Category[];
   selectCategory: (value: string) => void;
+  selectedCategory: string;
 }
 
 export default function CategoriesList({
   categories = [],
   selectCategory,
+  selectedCategory,
 }: ICategoriesListProps) {
   const openCategoryModal = useCategoryStore(
     (state) => state.openCategoryModal
@@ -21,7 +23,9 @@ export default function CategoriesList({
     <div className="flex flex-row flex-wrap gap-2">
       <div
         onClick={() => selectCategory("All")}
-        className="flex items-center justify-center bg-transparent border border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer"
+        className={` ${
+          selectedCategory === "All" && "shadow-md"
+        } flex items-center justify-center bg-transparent border border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer`}
       >
         <div className="font-bold text-sm">All</div>
       </div>
@@ -31,6 +35,7 @@ export default function CategoriesList({
           category={category}
           action={selectCategory}
           editable
+          selected={category.name === selectedCategory}
         />
       ))}
       <div

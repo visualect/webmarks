@@ -15,6 +15,7 @@ export default function RegisterPage() {
     register,
     handleSubmit,
     setError,
+    getFieldState,
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm<FieldValues>();
 
@@ -41,7 +42,7 @@ export default function RegisterPage() {
           type="text"
           label="What's your name?"
           name="name"
-          error={!!errors.name?.message}
+          error={getFieldState("name").error}
         />
         {errors.name?.type === "required" && (
           <InputErrorMessage message="Name is required" />
@@ -55,13 +56,15 @@ export default function RegisterPage() {
           type="text"
           label="What's your email?"
           name="email"
-          error={!!errors.email?.message}
+          error={getFieldState("email").error}
         />
         {errors.email?.type === "required" && (
           <InputErrorMessage message="Email is required" />
         )}
         {errors.email?.type === "server" && (
-          <InputErrorMessage message={"User with this email already exist"} />
+          <InputErrorMessage
+            message={"User with this email is already exist"}
+          />
         )}
       </div>
       <div className="flex flex-col gap-1">
@@ -72,7 +75,7 @@ export default function RegisterPage() {
           type="password"
           label="Create a password"
           name="password"
-          error={!!errors.password?.message}
+          error={getFieldState("password").error}
         />
         {errors.password?.type === "required" && (
           <InputErrorMessage message="Password is required" />

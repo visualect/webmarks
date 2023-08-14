@@ -21,9 +21,7 @@ export default function Modal({ body, isOpen, onClose }: IModalProps) {
   return (
     <div
       className={`fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center z-30 transition duration-100 ease-out ${
-        show
-          ? "backdrop-blur-[2px] bg-white/50"
-          : "backdrop-blur-[0px] bg-transparent"
+        show ? " bg-white/50" : " bg-transparent"
       }`}
     >
       <div

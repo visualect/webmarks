@@ -3,6 +3,7 @@
 import { signOut } from "next-auth/react";
 import MenuItem from "./MenuItem";
 import Menu from "./Menu";
+import { FiExternalLink } from "react-icons/fi";
 
 interface IProfileMenu {
   isOpen: boolean;
@@ -14,7 +15,11 @@ export default function ProfileMenu({ isOpen, userEmail }: IProfileMenu) {
     <ul className="flex flex-col gap-2 min-w-[150px]">
       <MenuItem label={`${userEmail}`} />
       <hr />
-      <MenuItem label={"Log out"} action={() => signOut()} />
+      <MenuItem
+        icon={FiExternalLink}
+        label={"Log out"}
+        action={() => signOut()}
+      />
     </ul>
   );
   return <Menu body={body} isOpen={isOpen} />;

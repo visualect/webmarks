@@ -41,11 +41,11 @@ export default function EditBookmarkModal({
   const {
     register,
     handleSubmit,
-    setError,
+    getFieldState,
     reset,
     control,
     setValue,
-    formState: { errors, isSubmitting, isDirty, isValid },
+    formState: { isSubmitting, isDirty, isValid },
   } = useForm<FieldValues>();
 
   const bookmark = useMemo(
@@ -93,7 +93,7 @@ export default function EditBookmarkModal({
             placeholder="URL"
             label="URL"
             type="text"
-            error={!!errors.url?.message}
+            error={getFieldState("url").error}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -104,7 +104,7 @@ export default function EditBookmarkModal({
             placeholder="Name"
             label="Name"
             type="text"
-            error={!!errors.name?.message}
+            error={getFieldState("name").error}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -115,7 +115,7 @@ export default function EditBookmarkModal({
             placeholder="Description"
             label="Description"
             type="text"
-            error={!!errors.description?.message}
+            error={getFieldState("description").error}
           />
         </div>
         <div className="flex flex-col gap-1">

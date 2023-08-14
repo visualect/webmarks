@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Modal from "./Modal";
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
-import Input from "../Input";
 import { Bookmark, Category } from "@prisma/client";
 import Button from "../buttons/Button";
 import axios from "axios";
@@ -24,15 +22,15 @@ import {
   useForm,
 } from "react-hook-form";
 import NewInput from "../NewInput";
+import isValidUrl from "@/utils/isValidUrl";
+import InputErrorMessage from "../InputErrorMessage";
 
 interface IAddNewBookmarkModalProps {
   categories: Category[];
-  bookmarks: Bookmark[];
 }
 
 export default function AddNewBookmarkModal({
   categories,
-  bookmarks,
 }: IAddNewBookmarkModalProps) {
   const { isBookmarkModalActive, closeBookmarkModal } = useBookmarkStore();
   const { openCategoryModal } = useCategoryStore();
@@ -41,6 +39,7 @@ export default function AddNewBookmarkModal({
   const {
     register,
     handleSubmit,
+    getFieldState,
     setError,
     reset,
     control,
@@ -48,6 +47,13 @@ export default function AddNewBookmarkModal({
   } = useForm<FieldValues>();
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (!isValidUrl(data.url)) {
+      setError("url", {
+        type: "incorrectUrl",
+        message: "Please, provide correct URL",
+      });
+      return;
+    }
     try {
       await axios.post("api/bookmarks", data);
     } catch (err: any) {
@@ -75,8 +81,11 @@ export default function AddNewBookmarkModal({
             name="url"
             placeholder="URL"
             required
-            error={!!errors.url?.message}
+            error={getFieldState("url").error}
           />
+          {errors.url && errors.url.type === "incorrectUrl" && (
+            <InputErrorMessage message={errors.url.message as string} />
+          )}
         </div>
         <div className="flex flex-col gap-1">
           <NewInput
@@ -86,7 +95,7 @@ export default function AddNewBookmarkModal({
             name="name"
             placeholder="Name"
             required
-            error={!!errors.name?.message}
+            error={getFieldState("name").error}
           />
         </div>
         <div className="flex flex-col gap-1">
@@ -97,7 +106,7 @@ export default function AddNewBookmarkModal({
             name="description"
             placeholder="Description"
             required
-            error={!!errors.description?.message}
+            error={getFieldState("description").error}
           />
         </div>
         <div className="flex flex-col gap-1">

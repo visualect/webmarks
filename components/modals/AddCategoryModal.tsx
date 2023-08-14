@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-import Input from "../Input";
 import Modal from "./Modal";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
@@ -22,19 +20,23 @@ export default function AddCategoryModal() {
   const {
     register,
     handleSubmit,
-    setError,
+    getFieldState,
     reset,
     control,
     setValue,
-    formState: { errors, isSubmitting, isDirty, isValid },
+    getValues,
+    formState: { isSubmitting, isDirty, isValid },
   } = useForm<FieldValues>();
 
   const colorVariants = {
-    indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
-    rose: "bg-rose-500/5 text-rose-500 border-rose-300",
-    emerald: "bg-emerald-500/5 text-emerald-500 border-emerald-300",
-    amber: "bg-amber-500/5 text-amber-500 border-amber-300",
-    fuchsia: "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300",
+    indigo:
+      "bg-indigo-500/5 text-indigo-500 border-indigo-300 shadow-indigo-300",
+    rose: "bg-rose-500/5 text-rose-500 border-rose-300 shadow-rose-300",
+    emerald:
+      "bg-emerald-500/5 text-emerald-500 border-emerald-300 shadow-emerald-300",
+    amber: "bg-amber-500/5 text-amber-500 border-amber-300 shadow-amber-300",
+    fuchsia:
+      "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300 shadow-fuchsia-300",
   };
 
   const colors = [
@@ -74,7 +76,7 @@ export default function AddCategoryModal() {
             required
             placeholder="Name"
             type="text"
-            error={!!errors.name?.message}
+            error={getFieldState("name").error}
           />
         </div>
         <div className="w-full">
@@ -90,7 +92,8 @@ export default function AddCategoryModal() {
                   <div
                     className={`${
                       colorVariants[item.value as keyof typeof colorVariants]
-                    } border rounded-xl p-2 text-sm font-bold cursor-pointer`}
+                    } border rounded-xl p-2 text-sm font-bold cursor-pointer
+                    ${item.value === getValues("color") && "shadow-lg"}`}
                     key={item.label}
                     onClick={() =>
                       setValue("color", item.value, {

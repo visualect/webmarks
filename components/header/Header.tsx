@@ -1,11 +1,11 @@
 "use client";
 
 import Container from "../Container";
-import Link from "next/link";
 import { User } from "@prisma/client";
 import ProfileMenu from "../menu/ProfileMenu";
 import { useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
+import Logo from "../Logo";
 
 interface IHeaderProps {
   currentUser: User;
@@ -19,12 +19,10 @@ export default function Header({ currentUser }: IHeaderProps) {
   });
 
   return (
-    <header className="border-b bg-white">
+    <header className="bg-transparent">
       <Container>
         <div className="flex flex-row items-center justify-between gap-8 py-5">
-          <span className="font-bold">
-            <Link href={"/"}>Webmarks</Link>
-          </span>
+          <Logo size={28} />
           <div
             ref={dropdownRef}
             onClick={(e) => {

@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { useBookmarkStore } from "@/store/store";
 import Link from "next/link";
 import { Bookmark } from "@prisma/client";
+import { useState } from "react";
 
 interface IBookmarkMenuProps {
   isOpen: boolean;
@@ -20,6 +21,7 @@ export default function BookmarkMenu({
   bookmark,
   closeMenu,
 }: IBookmarkMenuProps) {
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const { id, favorite: isFavorite } = bookmark;
@@ -28,11 +30,13 @@ export default function BookmarkMenu({
 
   const handleDelete = async () => {
     try {
+      setIsLoading(true);
       closeMenu();
       await axios.delete(`api/bookmarks/${id}`);
     } catch (err: any) {
       toast.error(err.message);
     } finally {
+      setIsLoading(false);
       router.refresh();
       toast.success("Bookmark successfully deleted!");
     }
@@ -40,11 +44,13 @@ export default function BookmarkMenu({
 
   const handleAddToFavorites = async () => {
     try {
+      setIsLoading(true);
       closeMenu();
       await axios.patch(`api/bookmarks/${id}`, { favorite: true });
     } catch (err: any) {
       toast.error(err.message);
     } finally {
+      setIsLoading(false);
       router.refresh();
       toast.success("Bookmark successfully added to favorites!");
     }
@@ -52,6 +58,7 @@ export default function BookmarkMenu({
 
   const handleRemoveFromFavorites = async () => {
     try {
+      setIsLoading(true);
       closeMenu();
       await axios.patch(`api/bookmarks/${id}`, {
         favorite: false,
@@ -59,6 +66,7 @@ export default function BookmarkMenu({
     } catch (err: any) {
       toast.error(err.message);
     } finally {
+      setIsLoading(false);
       router.refresh();
       toast.success("Bookmark successfully removed from favorites!");
     }
@@ -77,11 +85,16 @@ export default function BookmarkMenu({
       <MenuItem label="Delete" action={handleDelete} />
       {isFavorite ? (
         <MenuItem
+          disabled={isLoading}
           label="Remove from favorites"
           action={handleRemoveFromFavorites}
         />
       ) : (
-        <MenuItem label="Add to favorites" action={handleAddToFavorites} />
+        <MenuItem
+          disabled={isLoading}
+          label="Add to favorites"
+          action={handleAddToFavorites}
+        />
       )}
     </ul>
   );

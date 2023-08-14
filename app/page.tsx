@@ -19,7 +19,6 @@ export default async function Home() {
   }
   const bookmarks = await getBookmarksById(currentUser.id);
   const categories = await getCategoriesById(currentUser.id);
-  console.log(currentUser);
 
   return (
     <>
@@ -28,7 +27,7 @@ export default async function Home() {
       <DeleteCategoryModal />
       <EditCategoryModal categories={categories} />
       <EditBookmarkModal bookmarks={bookmarks} categories={categories} />
-      <AddNewBookmarkModal categories={categories} bookmarks={bookmarks} />
+      <AddNewBookmarkModal categories={categories} />
       <div className="flex flex-col content-between min-h-screen gap-8">
         <Header currentUser={currentUser} />
         <BookmarksList bookmarks={bookmarks} categories={categories} />

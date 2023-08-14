@@ -7,14 +7,17 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import InputErrorMessage from "@/components/InputErrorMessage";
+import { useState } from "react";
 
 export default function LoginPage() {
   const router = useRouter();
+  const [isRedirecting, setIsRedirecting] = useState(false);
 
   const {
     register,
     handleSubmit,
     setError,
+    getFieldState,
     formState: { errors, isSubmitting, isDirty, isValid },
   } = useForm<FieldValues>({
     defaultValues: {
@@ -38,6 +41,7 @@ export default function LoginPage() {
               message: result.error,
             });
       } else if (result?.ok) {
+        setIsRedirecting(true);
         router.push("/");
       }
     });
@@ -56,7 +60,7 @@ export default function LoginPage() {
           label="Email"
           name="email"
           required
-          error={!!errors.email?.message}
+          error={getFieldState("email").error}
         />
         {errors.email?.type === "required" && (
           <InputErrorMessage message="Email is required" />
@@ -75,7 +79,7 @@ export default function LoginPage() {
           label="Password"
           name="password"
           required
-          error={!!errors.password?.message}
+          error={getFieldState("password").error}
         />
         {errors.password?.type === "required" && (
           <InputErrorMessage message="Password is required" />
@@ -93,8 +97,8 @@ export default function LoginPage() {
           label={"Sign in"}
           style="primary"
           size="normal"
-          disabled={isSubmitting || !isDirty || !isValid}
-          isSumbitting={isSubmitting}
+          disabled={isSubmitting || !isDirty || !isValid || isRedirecting}
+          isSumbitting={isSubmitting || isRedirecting}
         />
       </div>
     </form>

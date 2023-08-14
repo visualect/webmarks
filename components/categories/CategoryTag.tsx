@@ -10,12 +10,14 @@ interface ICategoryTagProps {
   category: Category;
   action?: (value: string) => void;
   editable?: boolean;
+  selected: boolean;
 }
 
 export default function CategoryTag({
   category,
   action,
   editable,
+  selected,
 }: ICategoryTagProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -24,11 +26,17 @@ export default function CategoryTag({
   });
 
   const colorVariants = {
-    indigo: "bg-indigo-500/5 text-indigo-500 border-indigo-300",
-    rose: "bg-rose-500/5 text-rose-500 border-rose-300",
-    emerald: "bg-emerald-500/5 text-emerald-500 border-emerald-300",
-    amber: "bg-amber-500/5 text-amber-500 border-amber-300",
-    fuchsia: "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300",
+    indigo: `bg-indigo-500/5 text-indigo-500 border-indigo-300 ${
+      selected && "shadow-indigo-300"
+    }`,
+    rose: `bg-rose-500/5 text-rose-500 border-rose-300
+    ${selected && "shadow-rose-300"}`,
+    emerald: `bg-emerald-500/5 text-emerald-500 border-emerald-300
+    ${selected && "shadow-emerald-300"}`,
+    amber: `bg-amber-500/5 text-amber-500 border-amber-300
+    ${selected && "shadow-amber-300"}`,
+    fuchsia: `bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300
+    ${selected && "shadow-fuchsia-300"}`,
   };
 
   return (
@@ -36,12 +44,13 @@ export default function CategoryTag({
       onClick={action ? () => action(category.name) : undefined}
       className={`${
         colorVariants[category.color as keyof typeof colorVariants]
-      } flex flex-row gap-2 items-center justify-center font-bold text-sm rounded-full min-w-[60px] px-2 py-1 cursor-pointer border select-none`}
+      } relative flex flex-row gap-2 items-center justify-center font-bold text-sm rounded-full min-w-[60px] px-2 py-1 cursor-pointer border select-none
+      ${selected && "shadow-lg"}`}
     >
       {`${category.name}`}
       {editable && (
         <div
-          className="relative"
+          className="pl-1 border-l border-inherit"
           ref={categoryRef}
           onClick={(e) => {
             e.stopPropagation();

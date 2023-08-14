@@ -1,6 +1,11 @@
 "use client";
 
-import { UseFormRegister, FieldValues, Path } from "react-hook-form";
+import {
+  UseFormRegister,
+  FieldValues,
+  Path,
+  FieldError,
+} from "react-hook-form";
 
 interface IInputProps {
   placeholder: string;
@@ -9,7 +14,7 @@ interface IInputProps {
   required: boolean;
   label: Path<FieldValues>;
   name: Path<FieldValues>;
-  error: boolean;
+  error: FieldError | undefined;
 }
 
 export default function NewInput({

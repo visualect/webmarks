@@ -36,6 +36,7 @@ export default function LibrarySection({
       <CategoriesList
         categories={categories}
         selectCategory={setSelectedCategory}
+        selectedCategory={selectedCategory}
       />
       <div className="flex flex-col-reverse sm:flex-row items-center justify-between gap-8">
         <div className="w-full sm:w-auto">

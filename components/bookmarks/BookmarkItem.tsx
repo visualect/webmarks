@@ -89,13 +89,13 @@ export default function BookmarkItem({
         </div>
         <div className="flex flex-row gap-1 items-center">
           <div className="text-xs font-bold">#{categoryObj.name}</div>
-          <div className="relative">
+          <div className="">
             <div
               onClick={(e) => {
                 e.stopPropagation();
                 setIsMenuOpen((prev) => !prev);
               }}
-              className="p-3 hover:bg-gray-200 rounded-full transiiton duration-100"
+              className="relative p-3 hover:bg-gray-200 rounded-full transiton duration-100"
               ref={menuRef}
             >
               <BsThreeDotsVertical size={20} />

@@ -6,6 +6,7 @@ import SectionSwitcher from "../SectionSwitcher";
 import FavoritesSection from "../sections/FavoritesSection";
 import LibrarySection from "../sections/LibrarySection";
 import Container from "../Container";
+import { useMemo } from "react";
 
 interface IBookmarksProps {
   bookmarks: Bookmark[];
@@ -18,7 +19,10 @@ export default function BookmarksList({
 }: IBookmarksProps) {
   const [section, setSection] = useState<"library" | "favorites">("library");
 
-  const favorites = bookmarks.filter((item) => item.favorite);
+  const favorites = useMemo(
+    () => bookmarks.filter((item) => item.favorite),
+    [bookmarks]
+  );
 
   const favoriteSection = (
     <FavoritesSection categories={categories} favorites={favorites} />
@@ -31,7 +35,7 @@ export default function BookmarksList({
   return (
     <div className="flex-1 w-full mx-0 my-auto gap-4">
       <Container>
-        <SectionSwitcher setSection={setSection} />
+        <SectionSwitcher setSection={setSection} selected={section} />
         <div>{section === "library" ? librarySection : favoriteSection}</div>
       </Container>
     </div>

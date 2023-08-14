@@ -15,7 +15,7 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
-    redirect("/login");
+    return redirect("/login");
   }
   const bookmarks = await getBookmarksById(currentUser.id);
   const categories = await getCategoriesById(currentUser.id);

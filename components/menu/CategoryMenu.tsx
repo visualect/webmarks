@@ -16,7 +16,8 @@ export default function CategoryMenu({
   categoryId,
   closeMenu,
 }: ICategoryMenu) {
-  const { openEditModal, openDeleteModal } = useCategoryStore();
+  const openEditModal = useCategoryStore((store) => store.openEditModal);
+  const openDeleteModal = useCategoryStore((store) => store.openDeleteModal);
 
   const handleEdit = () => {
     closeMenu();

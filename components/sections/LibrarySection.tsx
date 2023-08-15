@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import EmptyState from "../EmptyState";
 import Input from "../Input";
 import Title from "../Title";
@@ -24,11 +24,22 @@ export default function LibrarySection({
   const [searchedValue, setSearchedValue] = useState("");
   const { openBookmarkModal } = useBookmarkStore();
 
-  let displayedBookmarks = useFilterBookmarks(
+  let filteredBookmarks = useFilterBookmarks(
     bookmarks,
     selectedCategory,
     searchedValue
   );
+
+  const displayedBookmarks = useMemo(() => {
+    return filteredBookmarks.map((bookmark) => (
+      <BookmarkItem
+        key={bookmark.id}
+        bookmark={bookmark}
+        categories={categories}
+        size="normal"
+      />
+    ));
+  }, [filteredBookmarks, categories]);
 
   return (
     <div className="flex flex-col gap-8">
@@ -56,16 +67,9 @@ export default function LibrarySection({
           />
         </div>
       </div>
-      {displayedBookmarks?.length ? (
+      {displayedBookmarks.length ? (
         <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-4">
-          {displayedBookmarks?.map((bookmark) => (
-            <BookmarkItem
-              key={bookmark.id}
-              bookmark={bookmark}
-              categories={categories}
-              size="normal"
-            />
-          ))}
+          {displayedBookmarks}
         </div>
       ) : (
         <EmptyState title="No bookmarks found" />

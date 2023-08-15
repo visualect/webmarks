@@ -9,7 +9,10 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 export default function DeleteCategoryModal() {
-  const { isDeleteModalActive, closeDeleteModal } = useCategoryStore();
+  const isDeleteModalActive = useCategoryStore(
+    (store) => store.isDeleteModalActive
+  );
+  const closeDeleteModal = useCategoryStore((store) => store.closeDeleteModal);
 
   const params = useSearchParams();
   const router = useRouter();
@@ -29,7 +32,7 @@ export default function DeleteCategoryModal() {
   };
 
   const body = (
-    <div className="flex flex-col gap-8 items-center">
+    <div className="flex flex-col gap-8 items-center w-full">
       <PiWarningLight size={48} className="text-rose-500" />
       <h1 className="text-center">
         By deleting this category{" "}

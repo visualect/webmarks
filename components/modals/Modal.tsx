@@ -25,12 +25,12 @@ export default function Modal({ body, isOpen, onClose }: IModalProps) {
 
   return (
     <div
-      className={`fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center z-30 transition duration-100 ease-out ${
+      className={`fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center p-2 z-30 transition duration-100 ease-out ${
         show ? " bg-white/50" : " bg-transparent"
       }`}
     >
       <div
-        className={`relative flex justify-center items-center p-14 bg-white border rounded-3xl w-full sm:max-w-[600px] ${
+        className={`relative flex justify-center items-center px-4 py-14 sm:p-14 bg-white border rounded-3xl w-full sm:w-[500px] sm:max-w-[600px] ${
           show ? "scale-100 opacity-100" : "scale-75 opacity-0"
         } transition duration-100 ease-out`}
       >

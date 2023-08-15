@@ -33,10 +33,15 @@ export default function EditBookmarkModal({
   categories,
   bookmarks,
 }: isEditModalActiveProps) {
-  const { isEditModalActive, closeEditModal } = useBookmarkStore();
+  const isEditModalActive = useBookmarkStore(
+    (state) => state.isEditModalActive
+  );
+  const closeEditModal = useBookmarkStore((state) => state.closeEditModal);
   const router = useRouter();
   const params = useSearchParams();
-  const { openCategoryModal } = useCategoryStore();
+  const openCategoryModal = useCategoryStore(
+    (state) => state.openCategoryModal
+  );
 
   const {
     register,
@@ -79,7 +84,7 @@ export default function EditBookmarkModal({
   };
 
   const body = (
-    <div className="flex flex-col gap-8 w-[500px]">
+    <div className="flex flex-col gap-8 w-full">
       <h1 className="font-bold text-center">Edit bookmark</h1>
       <form
         className="flex flex-col gap-4 w-full"

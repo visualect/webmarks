@@ -7,26 +7,25 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useBookmarkStore } from "@/store/store";
 import Link from "next/link";
-import { Bookmark } from "@prisma/client";
 import { useState } from "react";
 
 interface IBookmarkMenuProps {
   isOpen: boolean;
-  bookmark: Bookmark;
+  id: string;
+  isFavorite: boolean;
   closeMenu: () => void;
 }
 
 export default function BookmarkMenu({
   isOpen,
-  bookmark,
+  id,
+  isFavorite,
   closeMenu,
 }: IBookmarkMenuProps) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const { id, favorite: isFavorite } = bookmark;
-
-  const { openEditModal } = useBookmarkStore();
+  const openEditModal = useBookmarkStore((state) => state.openEditModal);
 
   const handleDelete = async () => {
     try {

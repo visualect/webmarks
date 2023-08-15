@@ -89,7 +89,7 @@ export default function EditCategoryModal({
   ];
 
   const body = (
-    <div className="flex flex-col gap-8 w-[350px]">
+    <div className="flex flex-col gap-8 w-full">
       <h1 className="font-bold text-center">Edit category</h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
         <div className="w-full">
@@ -105,7 +105,7 @@ export default function EditCategoryModal({
         </div>
         <div className="w-full">
           <p className="text-xs text-gray-500 mb-2">Color</p>
-          <div className="flex flex-row gap-2 justify-between">
+          <div className="flex flex-row flex-wrap gap-2 sm:justify-between">
             {colors.map((item) => (
               <Controller
                 name="color"

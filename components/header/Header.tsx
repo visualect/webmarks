@@ -22,7 +22,7 @@ export default function Header({ currentUser }: IHeaderProps) {
     <header className="bg-transparent">
       <Container>
         <div className="flex flex-row items-center justify-between gap-8 py-5">
-          <Logo size={28} />
+          <div className="font-bold">Webmarks</div>
           <div
             ref={dropdownRef}
             onClick={(e) => {

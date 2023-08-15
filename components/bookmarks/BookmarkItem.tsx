@@ -5,7 +5,7 @@ import { Bookmark, Category } from "@prisma/client";
 import Image from "next/image";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import BookmarkMenu from "../menu/BookmarkMenu";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useClickOutside } from "@/hooks/useClickOutside";
 import { GoLinkExternal } from "react-icons/go";
 
@@ -29,8 +29,9 @@ export default function BookmarkItem({
   const { name, description, url } = bookmark;
   const iconUrl = getFavicon(url);
 
-  const categoryObj = categories.find(
-    (item) => item.name === bookmark.category
+  const categoryObj = useMemo(
+    () => categories.find((item) => item.name === bookmark.category),
+    [categories, bookmark.category]
   ) as Category;
 
   const borderColorVariants = {
@@ -101,7 +102,8 @@ export default function BookmarkItem({
               <BsThreeDotsVertical size={20} />
               <BookmarkMenu
                 isOpen={isMenuOpen}
-                bookmark={bookmark}
+                id={bookmark.id}
+                isFavorite={bookmark.favorite}
                 closeMenu={() => setIsMenuOpen(false)}
               />
             </div>

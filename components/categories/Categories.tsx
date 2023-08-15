@@ -3,6 +3,7 @@
 import { Category } from "@prisma/client";
 import CategoryTag from "./CategoryTag";
 import { useCategoryStore } from "@/store/store";
+import { useMemo } from "react";
 
 interface ICategoriesListProps {
   categories: Category[];
@@ -10,7 +11,7 @@ interface ICategoriesListProps {
   selectedCategory: string;
 }
 
-export default function CategoriesList({
+export default function Categories({
   categories = [],
   selectCategory,
   selectedCategory,
@@ -18,6 +19,18 @@ export default function CategoriesList({
   const openCategoryModal = useCategoryStore(
     (state) => state.openCategoryModal
   );
+
+  const displayedCategories = useMemo(() => {
+    return categories.map((category) => (
+      <CategoryTag
+        key={category.id}
+        category={category}
+        action={selectCategory}
+        editable
+        selected={category.name === selectedCategory}
+      />
+    ));
+  }, [categories, selectedCategory, selectCategory]);
 
   return (
     <div className="flex flex-row flex-wrap gap-2">
@@ -29,15 +42,7 @@ export default function CategoriesList({
       >
         <div className="font-bold text-sm">All</div>
       </div>
-      {categories.map((category) => (
-        <CategoryTag
-          key={category.id}
-          category={category}
-          action={selectCategory}
-          editable
-          selected={category.name === selectedCategory}
-        />
-      ))}
+      {displayedCategories}
       <div
         onClick={openCategoryModal}
         className="flex items-center justify-center bg-transparent border border-dashed border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer"

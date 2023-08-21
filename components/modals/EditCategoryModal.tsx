@@ -54,7 +54,8 @@ export default function EditCategoryModal({
     };
   }, [category, currentCategoryId, reset, setValue]);
 
-  const { isEditModalActive: isOpen, closeEditModal } = useCategoryStore();
+  const isOpen = useCategoryStore((state) => state.isEditModalActive);
+  const closeEditModal = useCategoryStore((state) => state.closeDeleteModal);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {

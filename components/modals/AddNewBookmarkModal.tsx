@@ -2,7 +2,7 @@
 
 import Modal from "./Modal";
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
-import { Bookmark, Category } from "@prisma/client";
+import { Category } from "@prisma/client";
 import Button from "../buttons/Button";
 import axios from "axios";
 import { PiWarningLight } from "react-icons/pi";
@@ -32,8 +32,16 @@ interface IAddNewBookmarkModalProps {
 export default function AddNewBookmarkModal({
   categories,
 }: IAddNewBookmarkModalProps) {
-  const { isBookmarkModalActive, closeBookmarkModal } = useBookmarkStore();
-  const { openCategoryModal } = useCategoryStore();
+  const isBookmarkModalActive = useBookmarkStore(
+    (state) => state.isBookmarkModalActive
+  );
+  const closeBookmarkModal = useBookmarkStore(
+    (state) => state.closeBookmarkModal
+  );
+
+  const openCategoryModal = useCategoryStore(
+    (state) => state.openCategoryModal
+  );
   const router = useRouter();
 
   const {

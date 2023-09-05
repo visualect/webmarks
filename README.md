@@ -16,13 +16,14 @@ Welcome to the Webmarks! This is a pet project that I've developed to showcase m
 
 ## Technologies Used
 
+- Next 13
 - TypeScript
 - React
-- Next
-- tailwind / shadcn ui
 - Prisma
-- next-auth
-- zustand
+- NextAuth.js
+- Tailwind CSS
+- Radix UI
+- Zustand
 
 ## Contact
 

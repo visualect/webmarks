@@ -27,7 +27,7 @@ export default function BookmarkItem({
   });
 
   const { name, description, url } = bookmark;
-  // const iconUrl = getFavicon(url);
+  const iconUrl = getFavicon(url);
 
   const categoryObj = useMemo(
     () => categories.find((item) => item.name === bookmark.category),
@@ -75,7 +75,7 @@ export default function BookmarkItem({
         <div className="flex flex-row items-center gap-4">
           <Image
             alt="favicon"
-            src={"/images/temp-favicon.png"}
+            src={iconUrl}
             width={size === "large" ? 40 : 24}
             height={size === "large" ? 40 : 24}
             className="bg-transparent rounded-md"

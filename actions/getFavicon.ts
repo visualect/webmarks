@@ -1,14 +1,9 @@
-import isValidUrl from "@/utils/isValidUrl";
-
 export default function getFavicon(url: string) {
-  const isUrlValid = isValidUrl(url);
-  console.log(isUrlValid);
-  let domain;
-  if (isUrlValid) {
-    domain = new URL(url).hostname;
-  } else {
-    domain = "webmarks-visualect.vercel.app";
+  try {
+    let domain = new URL(url).hostname;
+    const iconUrl = `https://icon.horse/icon/${domain}`;
+    return iconUrl;
+  } catch (err) {
+    return "/images/temp-favicon.png";
   }
-  const iconUrl = `https://icon.horse/icon/${domain}`;
-  return iconUrl;
 }

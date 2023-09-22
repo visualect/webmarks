@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['icon.horse']
+        domains: ['icon.horse', 'webmarks-visualect.vercel.app']
     }
 }
 

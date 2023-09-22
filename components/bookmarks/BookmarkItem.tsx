@@ -75,7 +75,7 @@ export default function BookmarkItem({
         <div className="flex flex-row items-center gap-4">
           <Image
             alt="favicon"
-            src={"https://webmarks-visualect.vercel.app"}
+            src={"/images/temp-favicon.png"}
             width={size === "large" ? 40 : 24}
             height={size === "large" ? 40 : 24}
             className="bg-transparent rounded-md"

@@ -2,7 +2,6 @@
 
 import Modal from "./Modal";
 import { useBookmarkStore, useCategoryStore } from "@/store/store";
-import { Category } from "@prisma/client";
 import Button from "../buttons/Button";
 import axios from "axios";
 import { PiWarningLight } from "react-icons/pi";
@@ -24,14 +23,12 @@ import {
 import NewInput from "../NewInput";
 import isValidUrl from "@/utils/isValidUrl";
 import InputErrorMessage from "../InputErrorMessage";
+import { useContext } from "react";
+import { CategoriesContext } from "@/providers/CategoriesProvider";
 
-interface IAddNewBookmarkModalProps {
-  categories: Category[];
-}
+export default function AddNewBookmarkModal() {
+  const categories = useContext(CategoriesContext);
 
-export default function AddNewBookmarkModal({
-  categories,
-}: IAddNewBookmarkModalProps) {
   const isBookmarkModalActive = useBookmarkStore(
     (state) => state.isBookmarkModalActive
   );
@@ -118,7 +115,7 @@ export default function AddNewBookmarkModal({
           />
         </div>
         <div className="flex flex-col gap-1">
-          {!categories.length ? (
+          {categories.length === 0 ? (
             <div className="flex flex-col gap-1">
               <p className="text-xs text-gray-500">Choose category</p>
               <p className="flex items-center text-xs text-gray-500">
@@ -149,7 +146,7 @@ export default function AddNewBookmarkModal({
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
                     <SelectContent className="rounded-xl">
-                      {categories.map((item) => (
+                      {categories?.map((item) => (
                         <SelectItem
                           key={item.id}
                           value={item.name}

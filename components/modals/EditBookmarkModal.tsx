@@ -4,8 +4,8 @@ import { useBookmarkStore, useCategoryStore } from "@/store/store";
 import Modal from "./Modal";
 import { PiWarningLight } from "react-icons/pi";
 import Button from "../buttons/Button";
-import { useEffect, useMemo } from "react";
-import { Bookmark, Category } from "@prisma/client";
+import { useContext, useEffect, useMemo } from "react";
+import { Bookmark } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import axios from "axios";
 import { toast } from "sonner";
@@ -23,16 +23,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { CategoriesContext } from "@/providers/CategoriesProvider";
+import { BookmarksContext } from "@/providers/BookmarksProvider";
 
-interface isEditModalActiveProps {
-  categories: Category[];
-  bookmarks: Bookmark[];
-}
+export default function EditBookmarkModal() {
+  const categories = useContext(CategoriesContext);
+  const bookmarks = useContext(BookmarksContext);
 
-export default function EditBookmarkModal({
-  categories,
-  bookmarks,
-}: isEditModalActiveProps) {
   const isEditModalActive = useBookmarkStore(
     (state) => state.isEditModalActive
   );
@@ -124,7 +121,7 @@ export default function EditBookmarkModal({
           />
         </div>
         <div className="flex flex-col gap-1">
-          {!categories.length ? (
+          {categories.length === 0 ? (
             <div className="flex flex-col gap-1">
               <p className="text-xs text-gray-500">Category</p>
               <p className="flex items-center text-xs text-gray-500">

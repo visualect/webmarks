@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Input from "../Input";
+import { useContext, useEffect, useMemo } from "react";
 import Modal from "./Modal";
 import Button from "../buttons/Button";
 import { useCategoryStore } from "@/store/store";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { Category } from "@prisma/client";
 import {
   FieldValues,
   SubmitHandler,
@@ -16,18 +14,13 @@ import {
   Controller,
 } from "react-hook-form";
 import NewInput from "../NewInput";
-import CategoryTag from "../categories/CategoryTag";
+import { CategoriesContext } from "@/providers/CategoriesProvider";
 
-interface IEditCategoryModalProps {
-  categories: Category[];
-}
-
-export default function EditCategoryModal({
-  categories,
-}: IEditCategoryModalProps) {
+export default function EditCategoryModal() {
   const router = useRouter();
   const params = useSearchParams();
   const currentCategoryId = params.get("edit_category");
+  const categories = useContext(CategoriesContext);
 
   const category = useMemo(() => {
     return categories.find((item) => item.id === currentCategoryId);

@@ -21,8 +21,8 @@ export default function AuthWrapper({ form, authType }: IAuthWrapper) {
           {authType === "login" ? "Sign in" : "Create account"}
         </h1>
         <div>{form}</div>
-        <span className="text-center text-gray-400">or</span>
-        <AuthOption
+        {/* <span className="text-center text-gray-400">or</span> */}
+        {/* <AuthOption
           icon={AiFillGithub}
           action={() => signIn("github", { callbackUrl: "/" })}
           providerName="GitHub"
@@ -31,7 +31,7 @@ export default function AuthWrapper({ form, authType }: IAuthWrapper) {
           icon={FcGoogle}
           action={() => signIn("google", { callbackUrl: "/" })}
           providerName="Google"
-        />
+        /> */}
         <div>
           <div className="flex flex-col gap-1 text-center text-sm text-slate-800">
             {authType === "login"

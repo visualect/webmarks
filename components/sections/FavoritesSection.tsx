@@ -4,17 +4,18 @@ import { Bookmark, Category } from "@prisma/client";
 import BookmarkItem from "../bookmarks/BookmarkItem";
 import Title from "../Title";
 import EmptyState from "../EmptyState";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { CategoriesContext } from "@/providers/CategoriesProvider";
 
 interface IFavoritesSectionProps {
   favorites: Bookmark[];
-  categories: Category[];
 }
 
 export default function FavoritesSection({
   favorites,
-  categories,
 }: IFavoritesSectionProps) {
+  const categories = useContext(CategoriesContext);
+
   const displayedFavorites = useMemo(() => {
     return favorites.map((bookmark) => (
       <BookmarkItem

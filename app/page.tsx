@@ -9,30 +9,33 @@ import AddNewBookmarkModal from "@/components/modals/AddNewBookmarkModal";
 import DeleteCategoryModal from "@/components/modals/DeleteCategoryModal";
 import EditBookmarkModal from "@/components/modals/EditBookmarkModal";
 import EditCategoryModal from "@/components/modals/EditCategoryModal";
+import GlobalProvider from "@/providers/GlobalProvider";
 import ToastClient from "@/utils/ToastClient";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
   const currentUser = await getCurrentUser();
   if (!currentUser) {
-    return redirect("/login");
+    redirect("/login");
   }
   const bookmarks = await getBookmarksById(currentUser.id);
   const categories = await getCategoriesById(currentUser.id);
 
   return (
-    <>
-      <ToastClient />
-      <AddCategoryModal />
-      <DeleteCategoryModal />
-      <EditCategoryModal categories={categories} />
-      <EditBookmarkModal bookmarks={bookmarks} categories={categories} />
-      <AddNewBookmarkModal categories={categories} />
-      <div className="flex flex-col content-between min-h-screen gap-8">
-        <Header currentUser={currentUser} />
-        <BookmarksList bookmarks={bookmarks} categories={categories} />
-        <Footer />
-      </div>
-    </>
+    <GlobalProvider bookmarks={bookmarks} categories={categories}>
+      <>
+        <ToastClient />
+        <AddCategoryModal />
+        <DeleteCategoryModal />
+        <EditCategoryModal />
+        <EditBookmarkModal />
+        <AddNewBookmarkModal />
+        <div className="flex flex-col content-between min-h-screen gap-8">
+          <Header currentUser={currentUser} />
+          <BookmarksList />
+          <Footer />
+        </div>
+      </>
+    </GlobalProvider>
   );
 }

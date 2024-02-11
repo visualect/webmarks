@@ -18,7 +18,9 @@ export default function GlobalProvider({
 }: GlobalProviderProps) {
   return (
     <BookmarksProvider value={bookmarks}>
-      <CategoriesProvider value={categories}>{children}</CategoriesProvider>
+      <CategoriesProvider value={categories}>
+        {children}
+      </CategoriesProvider>
     </BookmarksProvider>
   );
 }

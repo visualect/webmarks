@@ -34,13 +34,13 @@ export default function LoginPage() {
       if (result?.error) {
         result.error.includes("password")
           ? setError("password", {
-              type: "server",
-              message: result.error,
-            })
+            type: "server",
+            message: result.error,
+          })
           : setError("email", {
-              type: "server",
-              message: result.error,
-            });
+            type: "server",
+            message: result.error,
+          });
       } else if (result?.ok) {
         setIsRedirecting(true);
         router.push("/");
@@ -51,7 +51,7 @@ export default function LoginPage() {
   const form = (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 min-w-[300px]"
+      className="flex flex-col gap-4"
     >
       <div className="flex flex-col gap-1">
         <NewInput

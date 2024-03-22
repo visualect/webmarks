@@ -32,7 +32,7 @@ export default function RegisterPage() {
   const form = (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-4 min-w-[300px]"
+      className="flex flex-col gap-4 "
     >
       <div className="flex flex-col gap-1">
         <NewInput

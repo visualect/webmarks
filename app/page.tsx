@@ -22,20 +22,18 @@ export default async function Home() {
   const categories = await getCategoriesById(currentUser.id);
 
   return (
-    <GlobalProvider bookmarks={bookmarks} categories={categories}>
-      <>
-        <ToastClient />
-        <AddCategoryModal />
-        <DeleteCategoryModal />
-        <EditCategoryModal />
-        <EditBookmarkModal />
-        <AddNewBookmarkModal />
-        <div className="flex flex-col content-between min-h-screen gap-8">
-          <Header currentUser={currentUser} />
-          <BookmarksList />
-          <Footer />
-        </div>
-      </>
-    </GlobalProvider>
+    <GlobalProvider bookmarks={bookmarks} categories={categories} currentUser={currentUser}>
+      <ToastClient />
+      <AddCategoryModal />
+      <DeleteCategoryModal />
+      <EditCategoryModal />
+      <EditBookmarkModal />
+      <AddNewBookmarkModal />
+      <div className="flex flex-col content-between min-h-screen gap-8">
+        <Header />
+        <BookmarksList />
+        <Footer />
+      </div>
+    </GlobalProvider >
   );
 }

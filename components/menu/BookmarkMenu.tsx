@@ -1,5 +1,3 @@
-"use client";
-
 import { useRouter } from "next/navigation";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";

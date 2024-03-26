@@ -29,11 +29,11 @@ export default async function Home() {
       <EditCategoryModal />
       <EditBookmarkModal />
       <AddNewBookmarkModal />
-      <main className="flex flex-col content-between min-h-screen gap-8">
+      <div className="flex flex-col content-between min-h-screen gap-8">
         <Header />
         <BookmarksList />
         <Footer />
-      </main>
+      </div>
     </Providers>
   );
 }

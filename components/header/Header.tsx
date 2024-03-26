@@ -1,25 +1,20 @@
 'use client'
 
-import { useTheme } from "next-themes";
 import Container from "../Container";
 import UserLabel from "./UserLabel";
+import ThemeSwitcher from "./ThemeSwitcher";
 
 
 export default function Header() {
-  const { theme, setTheme } = useTheme()
 
   return (
     <header className="bg-transparent">
       <Container>
         <div className="flex flex-row items-center justify-between  py-5">
           <div className="font-bold">webmarks</div>
-          <div className="gap-8">
-            <div>
-              current theme is : {theme}
-              <button onClick={() => setTheme('dark')}>dark</button>
-              <button onClick={() => setTheme('light')}>light</button>
-            </div>
+          <div className="flex flex-row gap-8 items-center">
             <UserLabel />
+            <ThemeSwitcher />
           </div>
         </div>
       </Container>

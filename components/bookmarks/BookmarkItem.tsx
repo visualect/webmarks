@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import getFavicon from "@/actions/getFavicon";
 import { Bookmark, Category } from "@prisma/client";
@@ -35,11 +35,11 @@ export default function BookmarkItem({
   ) as Category;
 
   const borderColorVariants = {
-    indigo: "bg-gradient-to-bl from-white via-indigo-50 to-white",
-    rose: "bg-gradient-to-bl from-white via-rose-50 to-white",
-    emerald: "bg-gradient-to-bl from-white via-emerald-50 to-white",
-    amber: "bg-gradient-to-bl from-white via-amber-50 to-white",
-    fuchsia: "bg-gradient-to-bl from-white via-fuchsia-50 to-white",
+    indigo: "via-indigo-50 dark:via-indigo-500/20",
+    rose: "via-rose-50 dark:via-rose-500/20",
+    emerald: "via-emerald-50 dark:via-emerald-500/20",
+    amber: "via-amber-50 dark:via-amber-500/20",
+    fuchsia: "via-fuchsia-50 dark:via-fuchsia-500/20",
   };
 
   return (
@@ -50,8 +50,8 @@ export default function BookmarkItem({
         flex
         flex-col
         gap-2
-        bg-white
         border
+        dark:border-neutral-700
         rounded-2xl
         cursor-pointer
         select-none
@@ -60,15 +60,19 @@ export default function BookmarkItem({
         transition
         min-w-[288px]
         group
-        ${
-          borderColorVariants[
-            categoryObj.color as keyof typeof borderColorVariants
-          ]
+        bg-gradient-to-bl
+        from-white
+        dark:from-neutral-900
+        ${borderColorVariants[
+        categoryObj.color as keyof typeof borderColorVariants
+        ]
         }
+        to-white
+        dark:to-neutral-900
         ${size === "large" ? " p-4" : "px-4 py-3 h-[100px]"}
         `}
     >
-      <div className="p-2 bg-white shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
+      <div className="p-2 bg-neutral-800 shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
         <GoLinkExternal />
       </div>
       <div className="flex flex-row items-center justify-between gap-4">
@@ -96,7 +100,7 @@ export default function BookmarkItem({
                 e.stopPropagation();
                 setIsMenuOpen((prev) => !prev);
               }}
-              className="relative p-3 hover:bg-gray-200 rounded-full transiton duration-100"
+              className="relative p-3 hover:bg-gray-200 dark:hover:bg-neutral-800 rounded-full transiton duration-100"
               ref={menuRef}
             >
               <BsThreeDotsVertical size={20} />
@@ -115,7 +119,7 @@ export default function BookmarkItem({
           className={`
         w-full
         ${size === "large" ? "text-sm" : "text-xs"}
-      text-gray-500
+      text-gray-500 dark:text-gray-400
         `}
         >
           {description}

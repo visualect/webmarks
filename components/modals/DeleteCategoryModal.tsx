@@ -25,7 +25,7 @@ export default function DeleteCategoryModal() {
       toast.error(err.message);
     } finally {
       closeDeleteModal();
-      router.push("/");
+      router.push("/", { scroll: false });
       router.refresh();
       toast.success("Category was successfully deleted!");
     }
@@ -48,7 +48,7 @@ export default function DeleteCategoryModal() {
           style="alternative"
           action={() => {
             closeDeleteModal();
-            router.push("/");
+            router.push("/", { scroll: false });
           }}
         />
         <Button
@@ -67,7 +67,7 @@ export default function DeleteCategoryModal() {
       isOpen={isDeleteModalActive}
       onClose={() => {
         closeDeleteModal();
-        router.push("/");
+        router.push("/", { scroll: false });
       }}
     />
   );

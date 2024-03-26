@@ -57,7 +57,7 @@ export default function EditCategoryModal() {
       toast.error(err.message);
     } finally {
       closeEditModal();
-      router.push("/");
+      router.push("/", { scroll: false });
       router.refresh();
       toast.success("Category was successfully updated!");
     }
@@ -108,9 +108,8 @@ export default function EditCategoryModal() {
                 rules={{ required: true }}
                 render={() => (
                   <div
-                    className={`${
-                      colorVariants[item.value as keyof typeof colorVariants]
-                    } border rounded-xl p-2 text-sm font-bold cursor-pointer
+                    className={`${colorVariants[item.value as keyof typeof colorVariants]
+                      } border rounded-xl p-2 text-sm font-bold cursor-pointer
                     ${item.value === getValues("color") && "shadow-lg"}`}
                     key={item.label}
                     onClick={() =>
@@ -146,7 +145,7 @@ export default function EditCategoryModal() {
       isOpen={isOpen}
       onClose={() => {
         closeEditModal();
-        router.push("/");
+        router.push("/", { scroll: false });
       }}
     />
   );

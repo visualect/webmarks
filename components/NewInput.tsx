@@ -36,7 +36,7 @@ export default function NewInput({
         {...register(name, { required })}
         className={`
         ${error ? "border-rose-500" : "border-neutral-200"}
-        w-full text-sm sm:w-auto px-4 py-2 border rounded-xl focus:outline-none`}
+        w-full text-sm sm:w-auto px-4 py-2 border dark:border-neutral-700 rounded-xl focus:outline-none bg-transparent dark:bg-neutral-800`}
         placeholder={placeholder}
         type={type}
       />

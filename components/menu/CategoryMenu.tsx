@@ -1,4 +1,3 @@
-"use client";
 
 import { useCategoryStore } from "@/store/store";
 import Menu from "./Menu";
@@ -31,10 +30,10 @@ export default function CategoryMenu({
 
   const body = (
     <ul className="flex flex-col gap-2 min-w-[50px]">
-      <Link href={`/?edit_category=${categoryId}`}>
+      <Link scroll={false} href={`/?edit_category=${categoryId}`}>
         <MenuItem label="Edit" action={handleEdit} />
       </Link>
-      <Link href={`/?delete_category=${categoryId}`}>
+      <Link scroll={false} href={`/?delete_category=${categoryId}`}>
         <MenuItem label="Delete" action={handleDelete} />
       </Link>
     </ul>

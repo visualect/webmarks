@@ -18,7 +18,7 @@ export default function BookmarksList() {
   const categories = useContext(CategoriesContext);
 
   useEffect(() => {
-    router.push("/");
+    router.push("/", { scroll: false });
   }, [router]);
 
   const favorites = useMemo(

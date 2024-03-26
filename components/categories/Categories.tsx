@@ -36,16 +36,15 @@ export default function Categories({
     <div className="flex flex-row flex-wrap gap-2">
       <div
         onClick={() => selectCategory("All")}
-        className={` ${
-          selectedCategory === "All" && "shadow-md"
-        } flex items-center justify-center bg-transparent border border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer`}
+        className={` ${selectedCategory === "All" && "shadow-md"
+          } flex items-center justify-center bg-transparent border border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer`}
       >
         <div className="font-bold text-sm">All</div>
       </div>
       {displayedCategories}
       <div
         onClick={openCategoryModal}
-        className="flex items-center justify-center bg-transparent border border-dashed border-black/50 rounded-full min-w-[60px] p-1 cursor-pointer"
+        className="flex items-center justify-center bg-transparent border border-dashed border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer"
       >
         <div className="font-bold text-sm">Add +</div>
       </div>

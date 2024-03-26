@@ -6,19 +6,19 @@ import BookmarksProvider from "./BookmarksProvider";
 import CategoriesProvider from "./CategoriesProvider";
 import CurrentUserProvider from "./CurrentUserProvider";
 
-interface GlobalProviderProps {
+interface ProvidersProps {
   bookmarks: Bookmark[];
   categories: Category[];
   currentUser: User;
   children: React.ReactNode;
 }
 
-export default function GlobalProvider({
+export default function Providers({
   bookmarks,
   categories,
   currentUser,
   children,
-}: GlobalProviderProps) {
+}: ProvidersProps) {
   return (
     <CurrentUserProvider value={currentUser}>
       <BookmarksProvider value={bookmarks}>

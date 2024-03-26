@@ -9,7 +9,7 @@ import AddNewBookmarkModal from "@/components/modals/AddNewBookmarkModal";
 import DeleteCategoryModal from "@/components/modals/DeleteCategoryModal";
 import EditBookmarkModal from "@/components/modals/EditBookmarkModal";
 import EditCategoryModal from "@/components/modals/EditCategoryModal";
-import GlobalProvider from "@/providers/GlobalProvider";
+import Providers from "@/providers/Providers";
 import ToastClient from "@/utils/ToastClient";
 import { redirect } from "next/navigation";
 
@@ -22,18 +22,18 @@ export default async function Home() {
   const categories = await getCategoriesById(currentUser.id);
 
   return (
-    <GlobalProvider bookmarks={bookmarks} categories={categories} currentUser={currentUser}>
+    <Providers bookmarks={bookmarks} categories={categories} currentUser={currentUser}>
       <ToastClient />
       <AddCategoryModal />
       <DeleteCategoryModal />
       <EditCategoryModal />
       <EditBookmarkModal />
       <AddNewBookmarkModal />
-      <div className="flex flex-col content-between min-h-screen gap-8">
+      <main className="flex flex-col content-between min-h-screen gap-8">
         <Header />
         <BookmarksList />
         <Footer />
-      </div>
-    </GlobalProvider >
+      </main>
+    </Providers>
   );
 }

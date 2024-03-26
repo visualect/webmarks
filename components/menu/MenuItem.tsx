@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import { IconType } from "react-icons/lib";
 
@@ -17,9 +17,8 @@ export default function MenuItem({
 }: IMenuItem) {
   return (
     <li
-      className={`${
-        disabled ? "text-gray-500" : "text-gray-800"
-      } flex p-2 text-sm hover:bg-gray-100 rounded-xl cursor-pointer font-normal`}
+      className={`${disabled ? "text-gray-500 dark:text-neutral-500" : "text-gray-800 dark:text-white"
+        } flex px-4 py-2 hover:bg-gray-100 dark:hover:bg-neutral-800 rounded-xl cursor-pointer font-normal`}
       onClick={action && !disabled ? action : undefined}
     >
       {Icon ? (

@@ -77,8 +77,8 @@ export default function BookmarkMenu({
   };
 
   const body = (
-    <ul className="flex flex-col gap-2 min-w-[150px]">
-      <Link href={`/?edit_bookmark=${id}`}>
+    <ul className="flex flex-col gap-1 min-w-[130px]">
+      <Link scroll={false} href={`/?edit_bookmark=${id}`}>
         <MenuItem label="Edit" action={handleEditBookmark} />
       </Link>
       <MenuItem label="Delete" action={handleDelete} />

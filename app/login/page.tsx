@@ -43,7 +43,7 @@ export default function LoginPage() {
           });
       } else if (result?.ok) {
         setIsRedirecting(true);
-        router.push("/");
+        router.push("/", { scroll: false });
       }
     });
   };

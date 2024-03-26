@@ -142,10 +142,10 @@ export default function AddNewBookmarkModal() {
                 rules={{ required: true }}
                 render={({ field }) => (
                   <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full text-sm rounded-xl px-4 py-2 ring-0 ring-offset-0 focus:ring-offset-0 focus:ring-0">
+                    <SelectTrigger className="w-full text-sm rounded-xl px-4 py-2 ring-0 ring-offset-0 dark:bg-neutral-800 dark:border-neutral-700 focus:ring-offset-0 focus:ring-0">
                       <SelectValue placeholder="Category" />
                     </SelectTrigger>
-                    <SelectContent className="rounded-xl">
+                    <SelectContent className="rounded-xl dark:bg-neutral-900">
                       {categories?.map((item) => (
                         <SelectItem
                           key={item.id}

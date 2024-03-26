@@ -72,7 +72,7 @@ export default function BookmarkItem({
         ${size === "large" ? " p-4" : "px-4 py-3 h-[100px]"}
         `}
     >
-      <div className="p-2 bg-neutral-800 shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
+      <div className="p-2 bg-white dark:bg-neutral-800 shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
         <GoLinkExternal />
       </div>
       <div className="flex flex-row items-center justify-between gap-4">

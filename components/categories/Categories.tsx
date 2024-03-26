@@ -1,5 +1,3 @@
-"use client";
-
 import { Category } from "@prisma/client";
 import CategoryTag from "./CategoryTag";
 import { useCategoryStore } from "@/store/store";
@@ -36,8 +34,8 @@ export default function Categories({
     <div className="flex flex-row flex-wrap gap-2">
       <div
         onClick={() => selectCategory("All")}
-        className={` ${selectedCategory === "All" && "shadow-md"
-          } flex items-center justify-center bg-transparent border border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer`}
+        className={` ${selectedCategory === "All" && "shadow-md bg-black dark:bg-white text-white dark:text-black"
+          } flex items-center justify-center border border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer`}
       >
         <div className="font-bold text-sm">All</div>
       </div>

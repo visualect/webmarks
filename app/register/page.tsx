@@ -23,7 +23,7 @@ export default function RegisterPage() {
     console.log(data);
     try {
       await axios.post("api/register", data);
-      router.push("/login", { scroll: fals, });
+      router.push("/login", { scroll: false });
     } catch (err: any) {
       setError("email", { type: "server", message: err.message });
     }

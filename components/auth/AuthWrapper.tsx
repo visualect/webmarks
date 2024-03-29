@@ -14,7 +14,7 @@ export default function AuthWrapper({ form, authType }: IAuthWrapper) {
       <ToastClient />
       <div className="flex flex-col gap-16 items-center">
         <h1 className="font-bold text-2xl">webmarks</h1>
-        <div className="flex flex-col gap-4 sm:w-[400px] px-8 py-7 m-6 shadow-2xl rounded-3xl bg-white dark:bg-neutral-900">
+        <div className="flex flex-col gap-4 sm:w-[400px] px-8 py-7 m-6 shadow-2xl dark:shadow-none dark:border rounded-3xl bg-white dark:bg-neutral-900">
           <h1 className="text-center font-bold text-xl mb-4">
             {authType === "login" ? "Sign in" : "Create account"}
           </h1>

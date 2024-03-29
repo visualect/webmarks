@@ -6,7 +6,7 @@ import Link from "next/link";
 
 interface ICategoryMenu {
   isOpen: boolean;
-  categoryId: string;
+  categoryId: string | undefined;
   closeMenu: () => void;
 }
 

@@ -2,6 +2,7 @@ import { Category } from "@prisma/client";
 import CategoryTag from "./CategoryTag";
 import { useCategoryStore } from "@/store/store";
 import { useMemo } from "react";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 interface ICategoriesListProps {
   categories: Category[];
@@ -21,30 +22,30 @@ export default function Categories({
   const displayedCategories = useMemo(() => {
     return categories.map((category) => (
       <CategoryTag
-        key={category.id}
-        category={category}
-        action={selectCategory}
+        small
         editable
+        key={category.id}
+        label={category.name}
+        color={category.color}
+        action={selectCategory}
         selected={category.name === selectedCategory}
+        id={category.id}
       />
     ));
   }, [categories, selectedCategory, selectCategory]);
 
   return (
-    <div className="flex flex-row flex-wrap gap-2">
-      <div
-        onClick={() => selectCategory("All")}
-        className={` ${selectedCategory === "All" && "shadow-md bg-black dark:bg-white text-white dark:text-black"
-          } flex items-center justify-center border border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer`}
-      >
-        <div className="font-bold text-sm">All</div>
+    <div className="flex flex-col gap-2">
+      <div className="flex flex-row gap-1 items-center text-gray-500 text-[11px]">
+        <AiOutlineInfoCircle size={14} />
+        <span>
+          Right click to edit or delete category
+        </span>
       </div>
-      {displayedCategories}
-      <div
-        onClick={openCategoryModal}
-        className="flex items-center justify-center bg-transparent border border-dashed border-black/50 dark:border-white rounded-full min-w-[60px] p-1 cursor-pointer"
-      >
-        <div className="font-bold text-sm">Add +</div>
+      <div className="flex flex-row flex-wrap gap-2">
+        <CategoryTag small label="All" color="default" selected={selectedCategory === 'All'} action={() => selectCategory('All')} />
+        {displayedCategories}
+        <CategoryTag small label="Add" color="default" action={openCategoryModal} />
       </div>
     </div>
   );

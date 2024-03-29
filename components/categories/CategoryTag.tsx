@@ -1,23 +1,29 @@
 "use client";
 
-import { Category } from "@prisma/client";
-import { PiDotsThreeOutlineVerticalFill } from "react-icons/pi";
 import { useState } from "react";
 import CategoryMenu from "../menu/CategoryMenu";
 import { useClickOutside } from "@/hooks/useClickOutside";
 
+// type Colors = 'default' | 'indigo' | 'rose' | 'emerald' | 'amber' | 'fuchsia';
+
 interface ICategoryTagProps {
-  category: Category;
+  label: string;
+  color: string;
+  id?: string;
   action?: (value: string) => void;
   editable?: boolean;
-  selected: boolean;
+  selected?: boolean;
+  small?: boolean;
 }
 
 export default function CategoryTag({
-  category,
+  label,
+  color,
+  id,
   action,
   editable,
   selected,
+  small
 }: ICategoryTagProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -26,6 +32,7 @@ export default function CategoryTag({
   });
 
   const colorVariants = {
+    default: `${selected ? "bg-black dark:bg-white text-white dark:text-black border-transparent" : "bg-transparent border-black dark:border-white border-dashed text-black dark:text-white"}`,
     indigo: `${selected ? "bg-indigo-500 text-white border-transparent" : "bg-indigo-500/5 text-indigo-500 border-indigo-300"}`,
     rose: `${selected ? "bg-rose-500 text-white border-transparent" : "bg-rose-500/5 text-rose-500 border-rose-300"}`,
     emerald: `${selected ? "bg-emerald-500 text-white border-transparent" : "bg-emerald-500/5 text-emerald-500 border-emerald-300"}`,
@@ -35,7 +42,15 @@ export default function CategoryTag({
 
   return (
     <div
-      onClick={action ? () => action(category.name) : undefined}
+      ref={categoryRef}
+      onClick={action ? () => action(label) : undefined}
+      onContextMenu={(e) => {
+        if (editable) {
+          e.preventDefault()
+          setIsDropdownOpen(true)
+          return
+        }
+      }}
       className={`
         relative
         flex
@@ -43,36 +58,24 @@ export default function CategoryTag({
         gap-2
         items-center
         justify-center
-        font-bold
-        text-sm
-        rounded-full
+        font-semibold
         min-w-[60px]
         px-2
         py-1
+        rounded-lg
         cursor-pointer
         border
         select-none
-        ${colorVariants[category.color as keyof typeof colorVariants]}
+        ${colorVariants[color as keyof typeof colorVariants]}
+        ${small ? 'text-xs' : 'text-sm'}
       `}
     >
-      {`${category.name}`}
-      {editable && (
-        <div
-          className="pl-1 border-l border-inherit"
-          ref={categoryRef}
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsDropdownOpen((prev) => !prev);
-          }}
-        >
-          <PiDotsThreeOutlineVerticalFill size={14} />
-          <CategoryMenu
-            isOpen={isDropdownOpen}
-            categoryId={category.id}
-            closeMenu={() => setIsDropdownOpen(false)}
-          />
-        </div>
-      )}
+      {`${label}`}
+      <CategoryMenu
+        isOpen={isDropdownOpen}
+        categoryId={id}
+        closeMenu={() => setIsDropdownOpen(false)}
+      />
     </div>
   );
 }

@@ -15,11 +15,13 @@ import {
 } from "react-hook-form";
 import NewInput from "../NewInput";
 import { CategoriesContext } from "@/providers/CategoriesProvider";
+import CategoryTag from "../categories/CategoryTag";
+
 
 export default function EditCategoryModal() {
   const router = useRouter();
   const params = useSearchParams();
-  const currentCategoryId = params.get("edit_category");
+  const currentCategoryId = params.get("edit_category") as string;
   const categories = useContext(CategoriesContext);
 
   const category = useMemo(() => {
@@ -63,17 +65,6 @@ export default function EditCategoryModal() {
     }
   };
 
-  const colorVariants = {
-    indigo:
-      "bg-indigo-500/5 text-indigo-500 border-indigo-300 shadow-indigo-300",
-    rose: "bg-rose-500/5 text-rose-500 border-rose-300 shadow-rose-300",
-    emerald:
-      "bg-emerald-500/5 text-emerald-500 border-emerald-300 shadow-emerald-300",
-    amber: "bg-amber-500/5 text-amber-500 border-amber-300 shadow-amber-300",
-    fuchsia:
-      "bg-fuchsia-500/5 text-fuchsia-500 border-fuchsia-300 shadow-fuchsia-300",
-  };
-
   const colors = [
     { value: "indigo", label: "Indigo" },
     { value: "emerald", label: "Emarald" },
@@ -107,20 +98,14 @@ export default function EditCategoryModal() {
                 control={control}
                 rules={{ required: true }}
                 render={() => (
-                  <div
-                    className={`${colorVariants[item.value as keyof typeof colorVariants]
-                      } border rounded-xl p-2 text-sm font-bold cursor-pointer
-                    ${item.value === getValues("color") && "shadow-lg"}`}
+                  <CategoryTag
                     key={item.label}
-                    onClick={() =>
-                      setValue("color", item.value, {
-                        shouldDirty: true,
-                        shouldValidate: true,
-                      })
-                    }
-                  >
-                    {item.label}
-                  </div>
+                    label={item.label}
+                    color={item.value}
+                    selected={item.value === getValues('color')}
+                    action={() => setValue('color', item.value, { shouldDirty: true, shouldValidate: true })}
+                    id={currentCategoryId}
+                  />
                 )}
               />
             ))}

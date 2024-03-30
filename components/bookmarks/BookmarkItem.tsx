@@ -26,7 +26,7 @@ export default function BookmarkItem({
     setIsMenuOpen(false);
   });
 
-  const { name, description, url } = bookmark;
+  const { name, description, url, id, favorite } = bookmark;
   const iconUrl = getFavicon(url);
 
   const categoryObj = useMemo(
@@ -34,7 +34,7 @@ export default function BookmarkItem({
     [categories, bookmark.category]
   ) as Category;
 
-  const borderColorVariants = {
+  const colorVariants = {
     indigo: "via-indigo-50 dark:via-indigo-500/20",
     rose: "via-rose-50 dark:via-rose-500/20",
     emerald: "via-emerald-50 dark:via-emerald-500/20",
@@ -43,40 +43,32 @@ export default function BookmarkItem({
   };
 
   return (
-    <div
-      onClick={() => window.open(url, "_blank")}
-      className={`
-        relative
-        flex
-        flex-col
-        gap-2
-        border
-        dark:border-neutral-700
-        rounded-2xl
-        cursor-pointer
-        select-none
-        hover:shadow-md
-        ease-out
-        transition
-        min-w-[288px]
-        group
-        bg-gradient-to-bl
-        from-white
-        dark:from-neutral-900
-        ${borderColorVariants[
-        categoryObj.color as keyof typeof borderColorVariants
-        ]
-        }
-        to-white
-        dark:to-neutral-900
-        ${size === "large" ? " p-4" : "px-4 py-3 h-[100px]"}
+    <div className="flex flex-row w-full min-w-0 items-center">
+      {/* Clickable link area */}
+      <div
+        className={`
+          flex
+          flex-col
+          w-full
+          min-w-0
+          p-2
+          gap-1
+          text-xs
+          bg-gradient-to-bl
+          from-white
+          dark:from-neutral-900
+          ${colorVariants[categoryObj.color as keyof typeof colorVariants]}
+          to-white
+          dark:to-neutral-900
+          border
+          border-r-0
+          rounded-bl-xl
+          rounded-tl-xl
+          cursor-pointer
         `}
-    >
-      <div className="p-2 bg-white dark:bg-neutral-800 shadow group absolute opacity-0 top-2 right-2 rounded-full group-hover:opacity-100 group-hover:translate-x-5 group-hover:-translate-y-5 transition pointer-events-none">
-        <GoLinkExternal />
-      </div>
-      <div className="flex flex-row items-center justify-between gap-4">
-        <div className="flex flex-row items-center gap-4">
+        onClick={() => window.open(url, '_blank')}
+      >
+        <div className="flex flew-row items-center gap-2">
           <Image
             alt="favicon"
             src={iconUrl}
@@ -84,47 +76,23 @@ export default function BookmarkItem({
             height={size === "large" ? 40 : 24}
             className="bg-transparent rounded-md"
           />
-          <h2
-            className={`
-        ${size === "large" ? "text-base font-bold" : "text-sm font-semibold"}
-        `}
-          >
+          <h2 className="font-bold truncate">
             {name}
           </h2>
         </div>
-        <div className="flex flex-row gap-1 items-center">
-          <div className="text-xs font-bold">#{categoryObj.name}</div>
-          <div className="">
-            <div
-              onClick={(e) => {
-                e.stopPropagation();
-                setIsMenuOpen((prev) => !prev);
-              }}
-              className="relative p-3 hover:bg-gray-200 dark:hover:bg-neutral-800 rounded-full transiton duration-100"
-              ref={menuRef}
-            >
-              <BsThreeDotsVertical size={20} />
-              <BookmarkMenu
-                isOpen={isMenuOpen}
-                id={bookmark.id}
-                isFavorite={bookmark.favorite}
-                closeMenu={() => setIsMenuOpen(false)}
-              />
-            </div>
-          </div>
+        <div className="text-[11px] text-neutral-500 truncate">
+          {description}
         </div>
       </div>
-      <div className="flex flex-row items-center truncate fade">
-        <p
-          className={`
-        w-full
-        ${size === "large" ? "text-sm" : "text-xs"}
-      text-gray-500 dark:text-gray-400
-        `}
-        >
-          {description}
-        </p>
+      {/* Options */}
+      <div
+        className="relative flex justify-center items-center h-full w-10 bg-white dark:bg-neutral-900 hover:bg-neutral-100 dark:hover:bg-neutral-800 border rounded-tr-xl rounded-br-xl cursor-pointer"
+        ref={menuRef}
+        onClick={() => setIsMenuOpen(prev => !prev)}
+      >
+        <BsThreeDotsVertical />
+        <BookmarkMenu isOpen={isMenuOpen} id={id} closeMenu={() => setIsMenuOpen(false)} isFavorite={favorite} />
       </div>
     </div>
-  );
+  )
 }

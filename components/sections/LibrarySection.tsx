@@ -8,13 +8,12 @@ import BookmarkItem from "../bookmarks/BookmarkItem";
 import Button from "../buttons/Button";
 import CategoriesList from "../categories/Categories";
 import { useBookmarkStore } from "@/store/store";
-import { Bookmark, Category } from "@prisma/client";
 import useFilterBookmarks from "@/hooks/useFilterBookmarks";
 import { BookmarksContext } from "@/providers/BookmarksProvider";
 import { CategoriesContext } from "@/providers/CategoriesProvider";
 
 export default function LibrarySection() {
-  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchedValue, setSearchedValue] = useState("");
   const { openBookmarkModal } = useBookmarkStore();
 

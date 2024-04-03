@@ -4,7 +4,7 @@ import { BsArrowUpRight } from "react-icons/bs";
 
 export default function Footer() {
   return (
-    <footer className=" bg-transparent">
+    <footer className="bg-transparent">
       <Container>
         <div className="flex flex-row items-center justify-between gap-8 py-10">
           <div>
@@ -15,17 +15,15 @@ export default function Footer() {
               />
             </a>
           </div>
-          <div className="flex flex-row gap-1 text-sm group relative">
-            Made by{" "}
+          <div className="flex flex-row gap-1 text-sm">
+            <span>
+              Made by
+            </span>
             <a
               className="underline underline-offset-2"
               href="https://github.com/visualect"
               target="_blank"
             >
-              <BsArrowUpRight
-                size={8}
-                className="absolute top-2 right-0 text-gray-800 opacity-0 pointer-events-none group-hover:opacity-100 transition duration-100 group-hover:translate-x-3 group-hover:-translate-y-3 east"
-              />
               Yan
             </a>
           </div>

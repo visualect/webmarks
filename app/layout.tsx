@@ -18,7 +18,7 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`relative ${inter.className} text-gray-800 dark:text-gray-100 bg-gradient-to-r from-gray-50 dark:from-neutral-900 from-1% to-100% to-white dark:to-neutral-950`}
+        className={`relative ${inter.className} text-gray-800 dark:text-gray-100 bg-neutral-100 dark:bg-neutral-900`}
       >
         <ThemeProvider attribute="class" defaultTheme="system">
           {children}

@@ -38,12 +38,16 @@ export default function Categories({
     <div className="flex flex-col gap-2">
       <div className="flex flex-row gap-1 items-center text-gray-500 text-[11px]">
         <AiOutlineInfoCircle size={14} />
-        <span>
+        <span className="hidden lg:block">
           Right click to edit or delete category
+        </span>
+        <span className="block lg:hidden">
+          Hold touch to edit or delete category
         </span>
       </div>
       <div className="flex flex-row flex-wrap gap-2">
-        <CategoryTag small label="All" color="default" selected={selectedCategory === 'All'} action={() => selectCategory('All')} />
+        <CategoryTag small label="All" color="default" selected={selectedCategory === 'all'} action={() => selectCategory('all')} />
+        <CategoryTag small label="Favorites" color="favorites" selected={selectedCategory === 'favorites'} action={() => selectCategory('favorites')} />
         {displayedCategories}
         <CategoryTag small label="Add" color="default" action={openCategoryModal} />
       </div>

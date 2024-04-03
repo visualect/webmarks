@@ -9,12 +9,15 @@ export default function useFilterBookmarks(
   let displayedBookmarks;
 
   const filteredBookmarksByCategory = useMemo(
-    () =>
-      selectedCategory === "All"
-        ? bookmarks
-        : bookmarks?.filter(
-            (bookmark) => bookmark.category === selectedCategory
-          ),
+    () => {
+      if (selectedCategory === 'all') {
+        return bookmarks
+      } else if (selectedCategory === 'favorites') {
+        return bookmarks?.filter(b => b.favorite)
+      } else {
+        return bookmarks?.filter(b => b.category === selectedCategory)
+      }
+    },
     [bookmarks, selectedCategory]
   );
 

@@ -45,7 +45,7 @@ export default function ThemeSwitcher() {
   )
 
   return (
-    <div className="relative flex flex-row p-1 items-center rounded-md cursor-pointer" onClick={() => setIsOpen((prev) => !prev)} ref={menuRef}>
+    <div className="relative flex hover:bg-neutral-200 hover:dark:bg-neutral-800 flex-row p-2 items-center rounded-md cursor-pointer" onClick={() => setIsOpen((prev) => !prev)} ref={menuRef}>
       {theme === 'system' ? systemIcon : currentIcon}
       <Menu isOpen={isOpen} body={menuBody} />
     </div>

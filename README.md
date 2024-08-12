@@ -1,4 +1,4 @@
-- Next 13
+- Next 13+
 - TypeScript
 - React
 - Prisma
